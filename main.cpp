@@ -6,7 +6,7 @@
 //should put on Git soon
 //write real documentation on how to use, functions, etc
 
-//CURRENTLY: testing out methods for each class
+//CURRENTLY: redoing main.cpp
 
 void print_vector(std::vector <std::string> vector)
 {
