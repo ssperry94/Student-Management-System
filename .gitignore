@@ -1,0 +1,8 @@
+#ignore all csv, txt, and exe files files
+*.csv
+*.txt 
+*.exe
+
+#ignores the vscode file
+*.vscode
+
