@@ -91,15 +91,25 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
 
 Student::Student()
 {
-    std::cout << "Please enter your Student ID number: ";
-    std::getline(std::cin,idnum);
-    std::vector <std::string> info = get_student("students.csv", idnum);
-    if(info[0] == "1")
+    int tries = 0;
+    while(tries < 3)
     {
-        std::cout << "Couldn't find Student.\n";
-        return;
+        std::cout << "Please enter your Student ID number: ";
+        std::getline(std::cin,idnum);
+        std::vector <std::string> info = get_student("students.csv", idnum);
+        if(info[0] == "1")
+        {
+            std::cout << "Couldn't find Student. Please try again.\n";
+            tries++;
+        }
+
+        else
+        {
+            authenticated = true;
+            return;
+        }
     }
-    authenticated = true;
+    std::cout << "Too many tries, exiting the prgram...\n";
 }
 
 bool Student::get_authorize_code()
