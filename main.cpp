@@ -9,7 +9,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: put on github
+//CURRENTLY: fix formatting/error check
 
 //code with teacher options
 void teacher();
