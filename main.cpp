@@ -10,7 +10,7 @@
 //add a way to edit information
 
 //CURRENTLY: add system("pauses")
-            //left-justify schedule output
+
 
 //code with teacher options
 void teacher();
@@ -82,7 +82,6 @@ void teacher()
                 break;
             }
 
-
             case 2:
             {
                 std::string idnum = teacher1.find_student();
@@ -112,6 +111,7 @@ void teacher()
                     std::cout << "Last Name: " << info[2] << '\n';
                     std::cout << "Date of Birth: " << info[3] << "\n\n";
                 }
+                std::system("pause");
                 break;
             }
 
@@ -136,8 +136,9 @@ void teacher()
                     {
                         std::cout << std::left << std::setw(16) << info[i] << std::setw(17) << info[i+1] << std::setw(15) << info[i+2] << '\n';
                     }
-                    std::cout << '\n';
+                    std::cout << std::right << '\n'; //reseting back to normal
                 }
+                std::system("pause");
                 break;
             }
 
@@ -159,9 +160,11 @@ void teacher()
                     std::cout << std::setw(8) <<  "Class name" << std::setw(9) << "Grade\n";
                     for(int i = 1; i < info.size(); i+=2)
                     {
-                        std::cout << std::setw(8) << info[i] << std::setw(8) << info[i+1] << '\n';
+                        std::cout << std::left << std::setw(13) << info[i] << info[i+1] << '\n';
                     }
                 } 
+                std::cout << std::right; //back to default
+                std::system("pause");
                 break;         
             }
 
