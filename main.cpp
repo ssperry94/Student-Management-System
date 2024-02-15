@@ -182,14 +182,15 @@ void teacher()
                 break;
             }
 
+            case 8:
+                return;
+
             default:
             {
                 std::cout << "Please enter a number 1-8.\n";
                 break;
             }
 
-            case 8:
-                return;
         }
     } 
 }
