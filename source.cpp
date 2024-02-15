@@ -4,7 +4,7 @@
 std::string User::find_student()
 {
     std::string name;
-    std::cout << "Please enter the student's first and last name: ";
+    std::cout << "\nPlease enter the student's first and last name: ";
     std::getline(std::cin, name);
     std::cout << '\n';
 
@@ -275,14 +275,14 @@ void Teacher::reset(std::string filename)
 {
     if(filename != "students.csv" && filename != "schedule.csv" && filename != "grades.csv")
     {
-        std::cout << "File does not exist.\n";
+        std::cout << "\nFile does not exist.\n";
         return;
     }
     std::ofstream file{filename};
 
     if(!file)
     {
-        std::cout << "Could not open file.\n";
+        std::cout << "\nCould not open file.\n";
         return;
     } 
     
@@ -325,5 +325,5 @@ void Teacher::reset(std::string filename)
         file << "Class Grade,\n";
     }
     
-    std::cout << "Reset " << filename << " successfully\n";
+    std::cout << "\nReset " << filename << " successfully.";
 }

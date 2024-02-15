@@ -46,7 +46,7 @@ int main()
         }
         else
         {
-            std::cout << "Please enter either a 'S' for student, 'T' for teacher, or 'q' to quit. Your response is not caps sensitive.\n";
+            std::cout << "Please enter either a 'S' for student, 'T' for teacher, or 'q' to quit. Your response is not caps sensitive.\n\n";
         }
     }
     std::cout << "Goodbye!\n";
@@ -60,7 +60,7 @@ void teacher()
     {
         int user_response;
 
-        std::cout << "Please select which action you would like to take:\n";
+        std::cout << "\nPlease select which action you would like to take:\n";
         std::cout << "1. Add a new student\n";
         std::cout << "2. Enter a students schedule\n";
         std::cout << "3. Enter grades\n";
@@ -106,10 +106,10 @@ void teacher()
                 }
                 else
                 {
-                    std::cout << std::setw(50) << "ID Number: " << info[0] << '\n';
-                    std::cout << std::setw(50) << "First Name: " << info[1] << '\n';
-                    std::cout << std::setw(50) << "Last Name: " << info[2] << '\n';
-                    std::cout << std::setw(50) << "Date of Birth: " << info[3] << "\n\n";
+                    std::cout << "ID Number: " << info[0] << '\n';
+                    std::cout << "First Name: " << info[1] << '\n';
+                    std::cout << "Last Name: " << info[2] << '\n';
+                    std::cout << "Date of Birth: " << info[3] << "\n\n";
                 }
                 break;
             }
@@ -167,13 +167,13 @@ void teacher()
             case 7:
             {
                 std::string filename;
-                std::cout << "Which file do you need reset, or if all files need a reset please enter in all caps ALL: ";
+                std::cout << "\nWhich file do you need reset, or if all files need a reset please enter in all caps ALL: ";
                 std::getline(std::cin, filename);
 
                 if(filename == "ALL")
                 {
                     teacher1.reset();
-                    std::cout << "All files reset.\n" << std::endl;
+                    std::cout << "\nAll files reset.\n" << std::endl;
                 }
                 else
                 {
