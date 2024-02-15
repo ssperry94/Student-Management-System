@@ -212,23 +212,25 @@ void student()
     while(true)
     {
         int user_response;
-        std::cout << "Please select the action you wish to take:\n";
+        std::cout << "\nPlease select the action you wish to take:\n";
         std::cout << "1. View your information.\n";
         std::cout << "2. View your schedule.\n";
         std::cout << "3. View your grades.\n";
-        std::cout << "4. Quit.\n";
+        std::cout << "4. Quit.\n\n";
         std::cin >> user_response;
         std::cin.sync(); 
 
+        std::cout << '\n';
         switch(user_response)
         {
             case 1:
             {
                 std::vector <std::string> student_info = student1.get_student("students.csv", idnum);
-                std::cout << std::setw(50) << "ID Number: " << student_info[0] << '\n';
-                std::cout << std::setw(50) << "First Name: " << student_info[1] << '\n';
-                std::cout << std::setw(50) << "Last Name: " << student_info[2] << '\n';
-                std::cout << std::setw(50) << "Date of Birth: " << student_info[3] << "\n\n";
+                std::cout << "ID Number: " << student_info[0] << '\n';
+                std::cout << "First Name: " << student_info[1] << '\n';
+                std::cout << "Last Name: " << student_info[2] << '\n';
+                std::cout << "Date of Birth: " << student_info[3] << "\n\n";
+                std::system("pause");
                 break;
             }
 
@@ -247,10 +249,11 @@ void student()
                     std::cout << "Class Name" << std::setw(16) << "Class Time" << std::setw(16) << "Days Met\n";
                     for(int i = 2; i < info.size(); i+= 3)
                     {
-                        std::cout <<std::setw(10) << info[i] << std::setw(16) << info[i+1] << std::setw(15) << info[i+2] << '\n';
+                        std::cout << std::left << std::setw(16) << info[i] << std::setw(17) << info[i+1] << std::setw(15) << info[i+2] << '\n';
                     }
-                    std::cout << '\n';
+                    std::cout << std::right << '\n'; //reseting back to normal
                 }
+                std::system("pause");
                 break;
             }
 
@@ -267,14 +270,19 @@ void student()
                     std::cout << std::setw(8) <<  "Class name" << std::setw(9) << "Grade\n";
                     for(int i = 1; i < info.size(); i+=2)
                     {
-                        std::cout << std::setw(8) << info[i] << std::setw(8) << info[i+1] << '\n';
+                        std::cout << std::left << std::setw(13) << info[i] << info[i+1] << '\n';
                     }
-                }
+                } 
+                std::cout << std::right; //back to default
+                std::system("pause");
                 break;
             }
             case 4:
                 return;
 
+            default:
+                std::cout << "ERROR! Please select an option 1-4.\n";
+                break;
         }
     }
 }
