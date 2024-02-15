@@ -9,7 +9,8 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: fix formatting/error check
+//CURRENTLY: add system("pauses")
+            //left-justify schedule output
 
 //code with teacher options
 void teacher();
@@ -133,7 +134,7 @@ void teacher()
                     std::cout << "Class Name" << std::setw(16) << "Class Time" << std::setw(16) << "Days Met\n";
                     for(int i = 2; i < info.size(); i+= 3)
                     {
-                        std::cout <<std::setw(10) << info[i] << std::setw(16) << info[i+1] << std::setw(15) << info[i+2] << '\n';
+                        std::cout << std::left << std::setw(16) << info[i] << std::setw(17) << info[i+1] << std::setw(15) << info[i+2] << '\n';
                     }
                     std::cout << '\n';
                 }
