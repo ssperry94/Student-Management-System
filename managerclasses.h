@@ -62,7 +62,6 @@ class Teacher : public User
 
         //adds grades for an existing student to grades.csv
         void add_grades(std::string idnum);
-
 };
 
 #endif
