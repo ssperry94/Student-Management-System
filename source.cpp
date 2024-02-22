@@ -89,7 +89,15 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
 
 bool User::check_input(std::string container)
 {
-    //code 
+    if(container.length() > 1)
+    {
+        return false;
+    }
+    if(!isdigit(container[0]))
+    {
+        return false;
+    }
+    return true;
 }
 //Student Class Methods
 

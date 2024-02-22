@@ -59,7 +59,9 @@ void teacher()
     Teacher teacher1;
     while(true)
     {
-        int user_response;
+        //variables
+        char user_response;
+        std::string container;
 
         std::cout << "\nPlease select which action you would like to take:\n";
         std::cout << "1. Add a new student\n";
@@ -70,131 +72,138 @@ void teacher()
         std::cout << "6. View student grades\n";
         std::cout << "7. Troubleshoot\n";
         std::cout << "8. Quit\n\n";
-        std::cin >> user_response;
-        
-        std::cin.sync();
-
-        switch(user_response)
+        std::getline(std::cin, container);
+        if(teacher1.check_input(container))
         {
-            case 1:
+            std::cin.putback(container[0] - '0');
+            std::cin >> user_response;
+            switch(user_response)
             {
-                teacher1.addStudent();
-                break;
-            }
-
-            case 2:
-            {
-                std::string idnum = teacher1.find_student();
-                teacher1.add_student_schedule(idnum);
-                break;               
-            }
-
-            case 3:
-            {
-                std::string idnum = teacher1.find_student();
-                teacher1.add_grades(idnum);
-                break;
-            }
-
-            case 4:
-            {
-                std::string idnum = teacher1.find_student();;
-                std::vector <std::string> info = teacher1.get_student("students.csv", idnum);
-                if(info.empty())
+                case 1:
                 {
-                    std::cout << "No student ID was found.\n";
+                    teacher1.addStudent();
+                    break;
                 }
-                else
-                {
-                    std::cout << "ID Number: " << info[0] << '\n';
-                    std::cout << "First Name: " << info[1] << '\n';
-                    std::cout << "Last Name: " << info[2] << '\n';
-                    std::cout << "Date of Birth: " << info[3] << "\n\n";
-                }
-                std::system("pause");
-                break;
-            }
 
-            case 5:
-            {
-                std::string idnum = teacher1.find_student();
-                std::vector <std::string> info = teacher1.get_student("schedule.csv", idnum);
-                if(info.empty())
+                case 2:
                 {
-                    std::cout << "No student ID was found.\n";
+                    std::string idnum = teacher1.find_student();
+                    teacher1.add_student_schedule(idnum);
+                    break;               
                 }
-                else if(info[0] == "1")
+
+                case 3:
                 {
-                    std::cout << "ERROR, no schedule found for " << idnum << '\n';
+                    std::string idnum = teacher1.find_student();
+                    teacher1.add_grades(idnum);
+                    break;
                 }
-                else
+
+                case 4:
                 {
-                    std::cout << "Student ID number: " << info[0] << '\n';
-                    std::cout << "Number of Classes (max of 4): " << info[1] << '\n';
-                    std::cout << "Class Name" << std::setw(16) << "Class Time" << std::setw(16) << "Days Met\n";
-                    for(int i = 2; i < info.size(); i+= 3)
+                    std::string idnum = teacher1.find_student();;
+                    std::vector <std::string> info = teacher1.get_student("students.csv", idnum);
+                    if(info.empty())
                     {
-                        std::cout << std::left << std::setw(16) << info[i] << std::setw(17) << info[i+1] << std::setw(15) << info[i+2] << '\n';
+                        std::cout << "No student ID was found.\n";
                     }
-                    std::cout << std::right << '\n'; //reseting back to normal
-                }
-                std::system("pause");
-                break;
-            }
-
-            case 6:
-            {
-                std::string idnum = teacher1.find_student();
-                std::vector <std::string> info = teacher1.get_student("grades.csv", idnum);
-                if(info.empty())
-                {
-                    std::cout << "No student ID was found.\n";
-                }
-                else if(info[0] == "1")
-                {
-                    std::cout << "ERROR, no grade found for " << idnum << '\n';
-                }
-                else
-                {
-                    std::cout << "Student ID number: " << info[0] << '\n';
-                    std::cout << std::setw(8) <<  "Class name" << std::setw(9) << "Grade\n";
-                    for(int i = 1; i < info.size(); i+=2)
+                    else
                     {
-                        std::cout << std::left << std::setw(13) << info[i] << info[i+1] << '\n';
+                        std::cout << "ID Number: " << info[0] << '\n';
+                        std::cout << "First Name: " << info[1] << '\n';
+                        std::cout << "Last Name: " << info[2] << '\n';
+                        std::cout << "Date of Birth: " << info[3] << "\n\n";
                     }
-                } 
-                std::cout << std::right; //back to default
-                std::system("pause");
-                break;         
-            }
-
-            case 7:
-            {
-                std::string filename;
-                std::cout << "\nWhich file do you need reset, or if all files need a reset please enter in all caps ALL: ";
-                std::getline(std::cin, filename);
-
-                if(filename == "ALL")
-                {
-                    teacher1.reset();
-                    std::cout << "\nAll files reset.\n" << std::endl;
+                    std::system("pause");
+                    break;
                 }
-                else
+
+                case 5:
                 {
-                    teacher1.reset(filename);
+                    std::string idnum = teacher1.find_student();
+                    std::vector <std::string> info = teacher1.get_student("schedule.csv", idnum);
+                    if(info.empty())
+                    {
+                        std::cout << "No student ID was found.\n";
+                    }
+                    else if(info[0] == "1")
+                    {
+                        std::cout << "ERROR, no schedule found for " << idnum << '\n';
+                    }
+                    else
+                    {
+                        std::cout << "Student ID number: " << info[0] << '\n';
+                        std::cout << "Number of Classes (max of 4): " << info[1] << '\n';
+                        std::cout << "Class Name" << std::setw(16) << "Class Time" << std::setw(16) << "Days Met\n";
+                        for(int i = 2; i < info.size(); i+= 3)
+                        {
+                            std::cout << std::left << std::setw(16) << info[i] << std::setw(17) << info[i+1] << std::setw(15) << info[i+2] << '\n';
+                        }
+                        std::cout << std::right << '\n'; //reseting back to normal
+                    }
+                    std::system("pause");
+                    break;
                 }
-                break;
-            }
 
-            case 8:
-                return;
+                case 6:
+                {
+                    std::string idnum = teacher1.find_student();
+                    std::vector <std::string> info = teacher1.get_student("grades.csv", idnum);
+                    if(info.empty())
+                    {
+                        std::cout << "No student ID was found.\n";
+                    }
+                    else if(info[0] == "1")
+                    {
+                        std::cout << "ERROR, no grade found for " << idnum << '\n';
+                    }
+                    else
+                    {
+                        std::cout << "Student ID number: " << info[0] << '\n';
+                        std::cout << std::setw(8) <<  "Class name" << std::setw(9) << "Grade\n";
+                        for(int i = 1; i < info.size(); i+=2)
+                        {
+                            std::cout << std::left << std::setw(13) << info[i] << info[i+1] << '\n';
+                        }
+                    } 
+                    std::cout << std::right; //back to default
+                    std::system("pause");
+                    break;         
+                }
 
-            default:
-            {
-                std::cout << "Please enter a number 1-8.\n";
-                break;
+                case 7:
+                {
+                    std::string filename;
+                    std::cout << "\nWhich file do you need reset, or if all files need a reset please enter in all caps ALL: ";
+                    std::getline(std::cin, filename);
+
+                    if(filename == "ALL")
+                    {
+                        teacher1.reset();
+                        std::cout << "\nAll files reset.\n" << std::endl;
+                    }
+                    else
+                    {
+                        teacher1.reset(filename);
+                    }
+                    break;
+                }
+
+                case 8:
+                    return;
+
+                default:
+                {
+                    std::cout << "Please enter a number 1-8.\n";
+                    break;
+                }
             }
         }
+        else
+        {
+            std::cout << "Invalid input, please try again.\n";
+        }
+        std::cin.sync();
     } 
 }
 
