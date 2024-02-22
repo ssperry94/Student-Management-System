@@ -9,7 +9,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: add system("pauses")
+//CURRENTLY: find as many errors as possible
 
 
 //code with teacher options
@@ -194,7 +194,6 @@ void teacher()
                 std::cout << "Please enter a number 1-8.\n";
                 break;
             }
-
         }
     } 
 }

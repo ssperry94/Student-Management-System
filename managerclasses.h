@@ -21,6 +21,10 @@ class User
 
         //returns student id number from students.csv        
         std::string find_student();
+
+        //validates input feed into both the teacher function and the student function
+        //returns false if length of input > 1 and if the first character isn't a number, true if only 1 number detected
+        bool check_input(std::string container);
 };
 
 //contains data and methods relevent to students

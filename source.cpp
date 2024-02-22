@@ -87,6 +87,10 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
 }
 //will return 1 if it cannot find a entry on the disired folder, regaurdess of whether it is empty or not
 
+bool User::check_input(std::string container)
+{
+    //code 
+}
 //Student Class Methods
 
 Student::Student()
