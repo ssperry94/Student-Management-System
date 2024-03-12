@@ -9,7 +9,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: find as many errors as possible
+//CURRENTLY: prevent spacing error
 
 
 //code with teacher options

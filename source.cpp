@@ -99,6 +99,21 @@ bool User::check_input(std::string container)
     }
     return true;
 }
+
+void User::delete_ending_spaces(std::string &string)
+{
+    int last = string.length() - 1;
+    if(string[last] != ' ')
+    {
+        return;
+    }
+
+    else
+    {
+        string.pop_back();
+        return delete_ending_spaces(string);
+    }
+}
 //Student Class Methods
 
 Student::Student()
