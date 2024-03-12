@@ -6,6 +6,7 @@ std::string User::find_student()
     std::string name;
     std::cout << "\nPlease enter the student's first and last name: ";
     std::getline(std::cin, name);
+    delete_ending_spaces(name);
     std::cout << '\n';
 
     std::fstream student_file{"students.csv", std::ios::in | std::ios::binary};
@@ -174,14 +175,17 @@ void Teacher::addStudent()
 
     std::cout << "Enter student's Firstname: ";
     std::getline(std::cin, firstname);
+    delete_ending_spaces(firstname);
 
 
     std::cout << "Enter student's Lastname: ";
     std::getline(std::cin, lastname);
+    delete_ending_spaces(lastname);
 
 
     std::cout << "Enter student's Date of Birth: ";
     std::getline(std::cin, birthday);
+    delete_ending_spaces(birthday);
 
     const int idnum = generate_ID();
 

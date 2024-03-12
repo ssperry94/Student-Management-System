@@ -9,7 +9,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: prevent spacing error
+//CURRENTLY: error when entering class 1 in add_student_schedule
 
 
 //code with teacher options
