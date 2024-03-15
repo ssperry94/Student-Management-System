@@ -252,13 +252,16 @@ void Teacher::add_student_schedule(std::string idnum)
         std::cout << "Please enter the class the student is taking: ";
         std::cin >> classes;
         schedule.push_back(classes);
+
         std::cout << "Please enter the starting and ending time (HH:MM-HH:MM): ";
         std::cin >> time; 
         schedule.push_back(time);
+
         std::cout << "Please enter the days of week: ";
         std::cin >> days_of_week;
         schedule.push_back(days_of_week);
     }
+    
     int error_check = write_to_outfile(schedule, "schedule.csv");
     if(error_check == 0)
     {
@@ -272,19 +275,27 @@ void Teacher::add_student_schedule(std::string idnum)
 
 void Teacher::add_grades(std::string idnum)
 {
-    std::fstream grades{"grades.csv", std::ios::app};
-    std::vector <std::string> schedule = get_student("schedule.csv", idnum);
-    grades << idnum << ',';
+    //std::fstream grades{"grades.csv", std::ios::app};
+    std::vector <std::string> schedule = get_student("schedule.csv", idnum), grades;
+    grades.push_back(idnum);
 
     for(int i = 2; i < schedule.size(); i += 3)
     {
         std::string grade;
-        grades << schedule[i] << ',';
+        grades.push_back(schedule[i]);
         std::cout << "Please enter the grade for " << schedule[i] << " ";
         std::cin >> grade;
-        grades << grade << ',';
+        grades.push_back(grade);
     }
-    grades << '\n';
+    int error_checker = write_to_outfile(grades, "grades.csv");
+    if(error_checker == 0)
+    {
+        std::cout << "Data entered successfully.";
+    }
+    else
+    {
+        std::cerr << "An error has occured during the file-writing process.\n";
+    }
 }
 
 void Teacher::reset()
