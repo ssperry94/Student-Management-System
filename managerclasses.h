@@ -56,6 +56,8 @@ class Teacher : public User
     private:
         //generates the student ID for new students
         const int generate_ID();
+
+        void write_to_outfile(std::vector<std::string> vector, std::string outfile_path);
     public:
         //overloaded reset function that can reset any files that are misbehaving
         void reset();

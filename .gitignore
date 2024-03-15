@@ -6,3 +6,6 @@
 #ignores the vscode file
 *.vscode
 
+#ignores my experiment files
+*exp.cpp
+

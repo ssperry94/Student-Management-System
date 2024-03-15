@@ -161,6 +161,11 @@ const int Teacher::generate_ID()
 
 }
 
+void write_to_outfile(std::vector<std::string> vector, std::string outfile_path)
+{
+    //code
+}
+
 void Teacher::addStudent()
 {
     std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
