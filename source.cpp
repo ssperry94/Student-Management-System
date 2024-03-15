@@ -183,14 +183,15 @@ int Teacher::write_to_outfile(std::vector<std::string> vector, std::string outfi
 
 void Teacher::addStudent()
 {
-    std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
+    // std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
 
-    if(!student_info)
-    {
-        std::cout << "Could not open file, may need to reset/recover.\n";
-        return;
-    }
+    // if(!student_info)
+    // {
+    //     std::cout << "Could not open file, may need to reset/recover.\n";
+    //     return;
+    // }
 
+    std::vector <std::string> student_info;
     std::string firstname, lastname, birthday;
 
     std::cout << "Enter student's Firstname: ";
@@ -208,11 +209,22 @@ void Teacher::addStudent()
     delete_ending_spaces(birthday);
 
     const int idnum = generate_ID();
+    std::string s_idnum = std::to_string(idnum);
 
-    student_info << idnum << ',';
-    student_info << firstname + ',';
-    student_info << lastname + ',';
-    student_info << birthday + ',' + '\n';
+    student_info.push_back(s_idnum);
+    student_info.push_back(firstname);
+    student_info.push_back(lastname);
+    student_info.push_back(birthday);
+
+    int error_check = write_to_outfile(student_info, "students.csv");
+    if(error_check == 0)
+    {
+        std::cout << "Data successfully added.\n";
+    }
+    else
+    {
+        std::cerr << "An error has occured during the file-writing process.\n";
+    }
 }
 
 void Teacher::add_student_schedule(std::string idnum)
@@ -269,7 +281,7 @@ void Teacher::add_student_schedule(std::string idnum)
     }
     else
     {
-        std::cerr << "An error has occured when writing to the file.\n";
+        std::cerr << "An error has occured during the file-writing process.\n";
     }
 }
 
