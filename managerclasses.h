@@ -12,6 +12,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <limits>
 
 //class for shared methods between students and teachers
 class User

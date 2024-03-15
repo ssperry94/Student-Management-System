@@ -195,18 +195,16 @@ void Teacher::addStudent()
     std::string firstname, lastname, birthday;
 
     std::cout << "Enter student's Firstname: ";
-    std::getline(std::cin, firstname);
-    delete_ending_spaces(firstname);
-
+    std::cin >> firstname;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Enter student's Lastname: ";
-    std::getline(std::cin, lastname);
-    delete_ending_spaces(lastname);
-
+    std::cin >> lastname;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Enter student's Date of Birth: ";
-    std::getline(std::cin, birthday);
-    delete_ending_spaces(birthday);
+    std::cin >> birthday;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     const int idnum = generate_ID();
     std::string s_idnum = std::to_string(idnum);
@@ -243,6 +241,7 @@ void Teacher::add_student_schedule(std::string idnum)
     {
         std::cout << "Please enter the amount of classes the student is taking this year: ";
         std::cin >> classes_num;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if(classes_num > 4)
         {
@@ -264,14 +263,17 @@ void Teacher::add_student_schedule(std::string idnum)
         std::cout << "Please enter the class the student is taking: ";
         std::cin >> classes;
         schedule.push_back(classes);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         std::cout << "Please enter the starting and ending time (HH:MM-HH:MM): ";
         std::cin >> time; 
         schedule.push_back(time);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         std::cout << "Please enter the days of week: ";
         std::cin >> days_of_week;
         schedule.push_back(days_of_week);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     
     int error_check = write_to_outfile(schedule, "schedule.csv");
@@ -297,6 +299,7 @@ void Teacher::add_grades(std::string idnum)
         grades.push_back(schedule[i]);
         std::cout << "Please enter the grade for " << schedule[i] << " ";
         std::cin >> grade;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         grades.push_back(grade);
     }
     int error_checker = write_to_outfile(grades, "grades.csv");
