@@ -6,6 +6,7 @@ std::string User::find_student()
     std::string name;
     std::cout << "\nPlease enter the student's first and last name: ";
     std::getline(std::cin, name);
+    delete_ending_spaces(name);
     std::cout << '\n';
 
     std::fstream student_file{"students.csv", std::ios::in | std::ios::binary};
@@ -87,6 +88,33 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
 }
 //will return 1 if it cannot find a entry on the disired folder, regaurdess of whether it is empty or not
 
+bool User::check_input(std::string container)
+{
+    if(container.length() > 1)
+    {
+        return false;
+    }
+    if(!isdigit(container[0]))
+    {
+        return false;
+    }
+    return true;
+}
+
+void User::delete_ending_spaces(std::string &string)
+{
+    int last = string.length() - 1;
+    if(string[last] != ' ')
+    {
+        return;
+    }
+
+    else
+    {
+        string.pop_back();
+        return delete_ending_spaces(string);
+    }
+}
 //Student Class Methods
 
 Student::Student()
@@ -133,50 +161,79 @@ const int Teacher::generate_ID()
 
 }
 
-void Teacher::addStudent()
+int Teacher::write_to_outfile(std::vector<std::string> vector, std::string outfile_path)
 {
-    std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
+    std::fstream file;
+    file.open(outfile_path, std::ios::app);
 
-    if(!student_info)
+    if(!file)
     {
-        std::cout << "Could not open file, may need to reset/recover.\n";
-        return;
+        std::cout << "File could not be opened.\n";
+        return 1;
     }
 
+    for(std::string item : vector)
+    {
+        file << item << ',';
+    }
+
+    file << '\n';
+    return 0;
+}
+
+void Teacher::addStudent()
+{
+    // std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
+
+    // if(!student_info)
+    // {
+    //     std::cout << "Could not open file, may need to reset/recover.\n";
+    //     return;
+    // }
+
+    std::vector <std::string> student_info;
     std::string firstname, lastname, birthday;
 
     std::cout << "Enter student's Firstname: ";
-    std::getline(std::cin, firstname);
-
+    std::cin >> firstname;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Enter student's Lastname: ";
-    std::getline(std::cin, lastname);
-
+    std::cin >> lastname;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     std::cout << "Enter student's Date of Birth: ";
-    std::getline(std::cin, birthday);
+    std::cin >> birthday;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     const int idnum = generate_ID();
+    std::string s_idnum = std::to_string(idnum);
 
-    student_info << idnum << ',';
-    student_info << firstname + ',';
-    student_info << lastname + ',';
-    student_info << birthday + ',' + '\n';
+    student_info.push_back(s_idnum);
+    student_info.push_back(firstname);
+    student_info.push_back(lastname);
+    student_info.push_back(birthday);
+
+    int error_check = write_to_outfile(student_info, "students.csv");
+    if(error_check == 0)
+    {
+        std::cout << "Data successfully added.\n";
+    }
+    else
+    {
+        std::cerr << "An error has occured during the file-writing process.\n";
+    }
 }
 
 void Teacher::add_student_schedule(std::string idnum)
 {
+    std::vector <std::string> schedule;
     if(idnum == "1")
     {
         std::cout << "ERROR: no student with that ID number was found.\n";
         return;
     }
-    std::fstream schedule{"schedule.csv", std::ios::app};
-    if(!schedule)
-    {
-        std::cerr << "ERROR could not open schedule.csv\n";
-        return;
-    }
+    schedule.push_back(idnum);
 
     int classes_num;
 
@@ -184,6 +241,7 @@ void Teacher::add_student_schedule(std::string idnum)
     {
         std::cout << "Please enter the amount of classes the student is taking this year: ";
         std::cin >> classes_num;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if(classes_num > 4)
         {
@@ -192,8 +250,9 @@ void Teacher::add_student_schedule(std::string idnum)
 
     } while(classes_num > 4);
 
-    schedule << idnum << ',';
-    schedule << classes_num << ',';
+    std::string s_classes_num = std::to_string(classes_num);
+
+    schedule.push_back(s_classes_num);
 
     for(int i = 1; i <= classes_num; i++)
     {
@@ -203,33 +262,55 @@ void Teacher::add_student_schedule(std::string idnum)
 
         std::cout << "Please enter the class the student is taking: ";
         std::cin >> classes;
+        schedule.push_back(classes);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         std::cout << "Please enter the starting and ending time (HH:MM-HH:MM): ";
         std::cin >> time; 
+        schedule.push_back(time);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         std::cout << "Please enter the days of week: ";
         std::cin >> days_of_week;
-
-        schedule << classes << ',';
-        schedule << time << ','; 
-        schedule << days_of_week << ',';
+        schedule.push_back(days_of_week);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    schedule << '\n';
+    
+    int error_check = write_to_outfile(schedule, "schedule.csv");
+    if(error_check == 0)
+    {
+        std::cout << "Data successfully added.\n";
+    }
+    else
+    {
+        std::cerr << "An error has occured during the file-writing process.\n";
+    }
 }
 
 void Teacher::add_grades(std::string idnum)
 {
-    std::fstream grades{"grades.csv", std::ios::app};
-    std::vector <std::string> schedule = get_student("schedule.csv", idnum);
-    grades << idnum << ',';
+    //std::fstream grades{"grades.csv", std::ios::app};
+    std::vector <std::string> schedule = get_student("schedule.csv", idnum), grades;
+    grades.push_back(idnum);
 
     for(int i = 2; i < schedule.size(); i += 3)
     {
         std::string grade;
-        grades << schedule[i] << ',';
+        grades.push_back(schedule[i]);
         std::cout << "Please enter the grade for " << schedule[i] << " ";
         std::cin >> grade;
-        grades << grade << ',';
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        grades.push_back(grade);
     }
-    grades << '\n';
+    int error_checker = write_to_outfile(grades, "grades.csv");
+    if(error_checker == 0)
+    {
+        std::cout << "Data entered successfully.";
+    }
+    else
+    {
+        std::cerr << "An error has occured during the file-writing process.\n";
+    }
 }
 
 void Teacher::reset()

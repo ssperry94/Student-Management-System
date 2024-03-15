@@ -11,6 +11,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <string>
+#include <limits>
 
 //class for shared methods between students and teachers
 class User
@@ -21,6 +23,14 @@ class User
 
         //returns student id number from students.csv        
         std::string find_student();
+
+        //validates input feed into both the teacher function and the student function
+        //returns false if length of input > 1 and if the first character isn't a number, true if only 1 number detected
+        bool check_input(std::string container);
+
+        //if a user accidentally leaves a space at the end of their input, function will delete the last index until it runs across a character
+        //that is not a spacee
+        void delete_ending_spaces(std::string &string);
 };
 
 //contains data and methods relevent to students
@@ -48,6 +58,8 @@ class Teacher : public User
     private:
         //generates the student ID for new students
         const int generate_ID();
+
+        int write_to_outfile(std::vector<std::string> vector, std::string outfile_path);
     public:
         //overloaded reset function that can reset any files that are misbehaving
         void reset();
