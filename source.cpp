@@ -161,9 +161,24 @@ const int Teacher::generate_ID()
 
 }
 
-void write_to_outfile(std::vector<std::string> vector, std::string outfile_path)
+int Teacher::write_to_outfile(std::vector<std::string> vector, std::string outfile_path)
 {
-    //code
+    std::fstream file;
+    file.open(outfile_path, std::ios::app);
+
+    if(!file)
+    {
+        std::cout << "File could not be opened.\n";
+        return 1;
+    }
+
+    for(std::string item : vector)
+    {
+        file << item << ',';
+    }
+
+    file << '\n';
+    return 0;
 }
 
 void Teacher::addStudent()
@@ -202,17 +217,13 @@ void Teacher::addStudent()
 
 void Teacher::add_student_schedule(std::string idnum)
 {
+    std::vector <std::string> schedule;
     if(idnum == "1")
     {
         std::cout << "ERROR: no student with that ID number was found.\n";
         return;
     }
-    std::fstream schedule{"schedule.csv", std::ios::app};
-    if(!schedule)
-    {
-        std::cerr << "ERROR could not open schedule.csv\n";
-        return;
-    }
+    schedule.push_back(idnum);
 
     int classes_num;
 
@@ -228,8 +239,9 @@ void Teacher::add_student_schedule(std::string idnum)
 
     } while(classes_num > 4);
 
-    schedule << idnum << ',';
-    schedule << classes_num << ',';
+    std::string s_classes_num = std::to_string(classes_num);
+
+    schedule.push_back(s_classes_num);
 
     for(int i = 1; i <= classes_num; i++)
     {
@@ -239,16 +251,23 @@ void Teacher::add_student_schedule(std::string idnum)
 
         std::cout << "Please enter the class the student is taking: ";
         std::cin >> classes;
+        schedule.push_back(classes);
         std::cout << "Please enter the starting and ending time (HH:MM-HH:MM): ";
         std::cin >> time; 
+        schedule.push_back(time);
         std::cout << "Please enter the days of week: ";
         std::cin >> days_of_week;
-
-        schedule << classes << ',';
-        schedule << time << ','; 
-        schedule << days_of_week << ',';
+        schedule.push_back(days_of_week);
     }
-    schedule << '\n';
+    int error_check = write_to_outfile(schedule, "schedule.csv");
+    if(error_check == 0)
+    {
+        std::cout << "Data successfully added.\n";
+    }
+    else
+    {
+        std::cerr << "An error has occured when writing to the file.\n";
+    }
 }
 
 void Teacher::add_grades(std::string idnum)
