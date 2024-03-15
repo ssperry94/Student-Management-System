@@ -9,7 +9,8 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: error when entering class 1 in add_student_schedule
+//CURRENTLY: in add_student_schedule, change for loop when entering classes to add to vectors/arrays, then add each element from array/vector
+//to file in order to fix error in which, if something breaks in the middle of adding information, nothing is added to the file
 
 
 //code with teacher options
