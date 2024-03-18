@@ -5,7 +5,6 @@
 //maybe make a python script to verify user info? 
 //should see about maybe making a GUI at some point
 //write real documentation on how to use, functions, etc
-//fix formatting to make it look better
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 

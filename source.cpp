@@ -35,6 +35,7 @@ std::string User::find_student()
             return student_info[0]; 
         }
     }
+    student_file.close();
     return "1";
 }
 
@@ -83,6 +84,7 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
         }
     }
     student_arr.shrink_to_fit();
+    schedule.close();
 
     return student_arr;
 }
@@ -178,6 +180,7 @@ int Teacher::write_to_outfile(std::vector<std::string> vector, std::string outfi
     }
 
     file << '\n';
+    file.close();
     return 0;
 }
 
