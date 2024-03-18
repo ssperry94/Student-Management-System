@@ -183,14 +183,6 @@ int Teacher::write_to_outfile(std::vector<std::string> vector, std::string outfi
 
 void Teacher::addStudent()
 {
-    // std::fstream student_info{"students.csv", std::ios::app | std::ios::out};
-
-    // if(!student_info)
-    // {
-    //     std::cout << "Could not open file, may need to reset/recover.\n";
-    //     return;
-    // }
-
     std::vector <std::string> student_info;
     std::string firstname, lastname, birthday;
 
