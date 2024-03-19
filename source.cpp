@@ -365,10 +365,30 @@ void Teacher::reset(std::string filename)
 
     if(filename == "students.csv")
     {
-    file << "Student ID Number,";
-    file << "Firstname,";
-    file << "Lastname,";
-    file << "DOB,\n";
+        char user_input;
+        std::cout << "Reseting students.csv may cause some of the other files to misbehave, are you sure you wish to proceed?(Y/N)\n";
+        std::cin >> user_input;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if(user_input == 'Y' || user_input == 'y')
+        {
+            file << "Student ID Number,";
+            file << "Firstname,";
+            file << "Lastname,";
+            file << "DOB,\n";
+        }
+        else if(user_input == 'N' || user_input == 'n')
+        {
+            std::cout << "Returing to main menu...\n\n";
+            file.close();
+            return;
+        }
+        else
+        {
+            std::cout << "Input not recognized, returning to main menu.\n\n";
+            file.close();
+            return;
+        }
     }
 
     else if(filename == "schedule.csv")
@@ -401,5 +421,6 @@ void Teacher::reset(std::string filename)
         file << "Class Grade,\n";
     }
     
+    file.close();
     std::cout << "\nReset " << filename << " successfully.";
 }
