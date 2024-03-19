@@ -8,7 +8,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: fixing the reset() function so that when students is reset, all files are reset
+//CURRENTLY: Working on user authentication system
 
 //code with teacher options
 void teacher();
