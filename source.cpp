@@ -284,15 +284,19 @@ void Teacher::add_student_schedule(std::string idnum)
 
 void Teacher::add_grades(std::string idnum)
 {
-    //std::fstream grades{"grades.csv", std::ios::app};
     std::vector <std::string> schedule = get_student("schedule.csv", idnum), grades;
+    if(idnum == "1")
+    {
+        std::cout << "ERROR: no student with that ID number was found.\n";
+        return;
+    }
     grades.push_back(idnum);
 
     for(int i = 2; i < schedule.size(); i += 3)
     {
         std::string grade;
         grades.push_back(schedule[i]);
-        std::cout << "Please enter the grade for " << schedule[i] << " ";
+        std::cout << "Please enter the grade for " << schedule[i] << ": ";
         std::cin >> grade;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         grades.push_back(grade);
