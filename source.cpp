@@ -31,7 +31,7 @@ std::string User::find_student()
 
         if(student_info[1] + ' ' + student_info[2] == name)
         {
-            
+            std::cout << "Student successfully found.\n\n";
             return student_info[0]; 
         }
     }
@@ -212,7 +212,7 @@ void Teacher::addStudent()
     int error_check = write_to_outfile(student_info, "students.csv");
     if(error_check == 0)
     {
-        std::cout << "Data successfully added.\n";
+        std::cout << "\nData successfully added.\n";
     }
     else
     {
