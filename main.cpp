@@ -2,13 +2,13 @@
 #include <iomanip>
 #include <C:\Users\ssper\OneDrive\Desktop\CPP\Projects\Student Managerv2\managerclasses.h>
 
-//maybe make a python script to verify user info? 
+//make user authentication in cpp
 //should see about maybe making a GUI at some point
 //write real documentation on how to use, functions, etc
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: Working on user authentication system
+//CURRENTLY: Working on user authentication system in cpp only
 
 //code with teacher options
 void teacher();
