@@ -11,3 +11,10 @@
 
 #ignore git stuff
 *Git Stuff
+
+#ignore build files
+*build
+*bin
+
+#ignore documentation
+*Documentation
