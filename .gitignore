@@ -9,5 +9,5 @@
 #ignores my experiment files
 *exp.cpp
 
-#ignore key files
-*.key
+#ignore git stuff
+*Git Stuff
