@@ -1,0 +1,579 @@
+package(default_visibility = ["//:__subpackages__"])
+
+licenses(["notice"])
+
+cc_library(
+    name = "mac_wrapper",
+    srcs = ["mac_wrapper.cc"],
+    hdrs = ["mac_wrapper.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        "//tink:crypto_format",
+        "//tink:mac",
+        "//tink:primitive_set",
+        "//tink:primitive_wrapper",
+        "//tink/internal:monitoring_util",
+        "//tink/internal:registry_impl",
+        "//tink/internal:util",
+        "//tink/monitoring",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_library(
+    name = "mac_config",
+    srcs = ["mac_config.cc"],
+    hdrs = ["mac_config.h"],
+    include_prefix = "tink/mac",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":aes_cmac_key_manager",
+        ":aes_cmac_proto_serialization",
+        ":hmac_key_manager",
+        ":hmac_proto_serialization",
+        ":mac_wrapper",
+        "//tink:registry",
+        "//tink/config:config_util",
+        "//tink/config:tink_fips",
+        "//tink/mac/internal:chunked_mac_wrapper",
+        "//proto:config_cc_proto",
+        "//tink/util:status",
+        "@com_google_absl//absl/base:core_headers",
+        "@com_google_absl//absl/memory",
+    ],
+)
+
+cc_library(
+    name = "mac_factory",
+    srcs = ["mac_factory.cc"],
+    hdrs = ["mac_factory.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":mac_wrapper",
+        "//tink:key_manager",
+        "//tink:keyset_handle",
+        "//tink:mac",
+        "//tink:registry",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/base:core_headers",
+    ],
+)
+
+cc_library(
+    name = "mac_key_templates",
+    srcs = ["mac_key_templates.cc"],
+    hdrs = ["mac_key_templates.h"],
+    include_prefix = "tink/mac",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//proto:aes_cmac_cc_proto",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+    ],
+)
+
+cc_library(
+    name = "aes_cmac_key_manager",
+    hdrs = ["aes_cmac_key_manager.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        "//tink:chunked_mac",
+        "//tink:core/key_type_manager",
+        "//tink:key_manager",
+        "//tink:mac",
+        "//tink/mac/internal:chunked_mac_impl",
+        "//proto:aes_cmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/subtle:aes_cmac_boringssl",
+        "//tink/subtle:random",
+        "//tink/util:constants",
+        "//tink/util:errors",
+        "//tink/util:protobuf_helper",
+        "//tink/util:secret_data",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "//tink/util:validation",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_library(
+    name = "hmac_key_manager",
+    srcs = ["hmac_key_manager.cc"],
+    hdrs = ["hmac_key_manager.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        "//tink:chunked_mac",
+        "//tink:core/key_type_manager",
+        "//tink:mac",
+        "//tink/mac/internal:chunked_mac_impl",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/subtle:hmac_boringssl",
+        "//tink/subtle:random",
+        "//tink/util:constants",
+        "//tink/util:enums",
+        "//tink/util:errors",
+        "//tink/util:input_stream_util",
+        "//tink/util:protobuf_helper",
+        "//tink/util:secret_data",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "//tink/util:validation",
+        "@com_google_absl//absl/memory",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_library(
+    name = "mac_parameters",
+    hdrs = ["mac_parameters.h"],
+    include_prefix = "tink/mac",
+    deps = ["//tink:parameters"],
+)
+
+cc_library(
+    name = "mac_key",
+    hdrs = ["mac_key.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":mac_parameters",
+        "//tink:key",
+        "//tink/util:statusor",
+    ],
+)
+
+cc_library(
+    name = "failing_mac",
+    testonly = 1,
+    srcs = ["failing_mac.cc"],
+    hdrs = ["failing_mac.h"],
+    include_prefix = "tink/mac",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//tink:mac",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_library(
+    name = "aes_cmac_parameters",
+    srcs = ["aes_cmac_parameters.cc"],
+    hdrs = ["aes_cmac_parameters.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":mac_parameters",
+        "//tink:crypto_format",
+        "//tink/internal:util",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/log",
+    ],
+)
+
+cc_library(
+    name = "aes_cmac_key",
+    srcs = ["aes_cmac_key.cc"],
+    hdrs = ["aes_cmac_key.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":aes_cmac_parameters",
+        ":mac_key",
+        "//tink:partial_key_access_token",
+        "//tink:restricted_data",
+        "//tink/subtle:subtle_util",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@boringssl//:crypto",
+        "@com_google_absl//absl/base:core_headers",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/types:optional",
+    ],
+)
+
+cc_library(
+    name = "aes_cmac_proto_serialization",
+    srcs = ["aes_cmac_proto_serialization.cc"],
+    hdrs = ["aes_cmac_proto_serialization.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":aes_cmac_key",
+        ":aes_cmac_parameters",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink:secret_key_access_token",
+        "//tink/internal:key_parser",
+        "//tink/internal:key_serializer",
+        "//tink/internal:mutable_serialization_registry",
+        "//tink/internal:parameters_parser",
+        "//tink/internal:parameters_serializer",
+        "//tink/internal:proto_key_serialization",
+        "//tink/internal:proto_parameters_serialization",
+        "//proto:aes_cmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/types:optional",
+    ],
+)
+
+cc_library(
+    name = "hmac_parameters",
+    srcs = ["hmac_parameters.cc"],
+    hdrs = ["hmac_parameters.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":mac_parameters",
+        "//tink:crypto_format",
+        "//tink/internal:util",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/log",
+    ],
+)
+
+cc_library(
+    name = "hmac_key",
+    srcs = ["hmac_key.cc"],
+    hdrs = ["hmac_key.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":hmac_parameters",
+        ":mac_key",
+        "//tink:partial_key_access_token",
+        "//tink:restricted_data",
+        "//tink/subtle:subtle_util",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/base:core_headers",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/types:optional",
+    ],
+)
+
+cc_library(
+    name = "hmac_proto_serialization",
+    srcs = ["hmac_proto_serialization.cc"],
+    hdrs = ["hmac_proto_serialization.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        ":hmac_key",
+        ":hmac_parameters",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink:secret_key_access_token",
+        "//tink/internal:key_parser",
+        "//tink/internal:key_serializer",
+        "//tink/internal:mutable_serialization_registry",
+        "//tink/internal:parameters_parser",
+        "//tink/internal:parameters_serializer",
+        "//tink/internal:proto_key_serialization",
+        "//tink/internal:proto_parameters_serialization",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/types:optional",
+    ],
+)
+
+cc_library(
+    name = "config_v0",
+    srcs = ["config_v0.cc"],
+    hdrs = ["config_v0.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        "//tink:configuration",
+        "//tink/mac/internal:config_v0",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+cc_library(
+    name = "key_gen_config_v0",
+    srcs = ["key_gen_config_v0.cc"],
+    hdrs = ["key_gen_config_v0.h"],
+    include_prefix = "tink/mac",
+    deps = [
+        "//tink:key_gen_configuration",
+        "//tink/mac/internal:key_gen_config_v0",
+        "@com_google_absl//absl/log:check",
+    ],
+)
+
+# tests
+
+cc_test(
+    name = "mac_wrapper_test",
+    size = "small",
+    srcs = ["mac_wrapper_test.cc"],
+    deps = [
+        ":failing_mac",
+        ":mac_wrapper",
+        "//tink:crypto_format",
+        "//tink:mac",
+        "//tink:primitive_set",
+        "//tink/internal:registry_impl",
+        "//tink/monitoring",
+        "//tink/monitoring:monitoring_client_mocks",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:test_matchers",
+        "//tink/util:test_util",
+        "@com_google_absl//absl/strings",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "mac_config_test",
+    size = "small",
+    srcs = ["mac_config_test.cc"],
+    tags = ["fips"],
+    deps = [
+        ":aes_cmac_key",
+        ":aes_cmac_key_manager",
+        ":aes_cmac_parameters",
+        ":hmac_key",
+        ":hmac_key_manager",
+        ":hmac_parameters",
+        ":mac_config",
+        ":mac_key_templates",
+        "//tink:chunked_mac",
+        "//tink:insecure_secret_key_access",
+        "//tink:keyset_handle",
+        "//tink:mac",
+        "//tink:partial_key_access",
+        "//tink:registry",
+        "//tink/internal:fips_utils",
+        "//tink/internal:mutable_serialization_registry",
+        "//tink/internal:proto_key_serialization",
+        "//tink/internal:proto_parameters_serialization",
+        "//proto:common_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:test_matchers",
+        "//tink/util:test_util",
+        "@boringssl//:crypto",
+        "@com_google_absl//absl/status",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "mac_factory_test",
+    size = "small",
+    srcs = ["mac_factory_test.cc"],
+    deps = [
+        ":hmac_key_manager",
+        ":mac_config",
+        ":mac_factory",
+        "//tink:crypto_format",
+        "//tink:keyset_handle",
+        "//tink:mac",
+        "//tink/internal:key_info",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/util:status",
+        "//tink/util:test_keyset_handle",
+        "//tink/util:test_util",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "mac_key_templates_test",
+    size = "small",
+    srcs = ["mac_key_templates_test.cc"],
+    deps = [
+        ":aes_cmac_key_manager",
+        ":hmac_key_manager",
+        ":mac_key_templates",
+        "//tink:core/key_manager_impl",
+        "//proto:aes_cmac_cc_proto",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "aes_cmac_key_manager_test",
+    size = "small",
+    srcs = ["aes_cmac_key_manager_test.cc"],
+    deps = [
+        ":aes_cmac_key_manager",
+        "//tink:chunked_mac",
+        "//tink:mac",
+        "//proto:aes_cmac_cc_proto",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "hmac_key_manager_test",
+    size = "small",
+    srcs = ["hmac_key_manager_test.cc"],
+    deps = [
+        ":hmac_key_manager",
+        "//tink:chunked_mac",
+        "//tink:core/key_manager_impl",
+        "//tink:mac",
+        "//proto:hmac_cc_proto",
+        "//tink/util:istream_input_stream",
+        "//tink/util:secret_data",
+        "//tink/util:status",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_absl//absl/status",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "failing_mac_test",
+    srcs = ["failing_mac_test.cc"],
+    deps = [
+        ":failing_mac",
+        "//tink/util:test_matchers",
+        "@com_google_absl//absl/status",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "aes_cmac_parameters_test",
+    size = "small",
+    srcs = ["aes_cmac_parameters_test.cc"],
+    deps = [
+        ":aes_cmac_parameters",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "aes_cmac_key_test",
+    size = "small",
+    srcs = ["aes_cmac_key_test.cc"],
+    deps = [
+        ":aes_cmac_key",
+        ":aes_cmac_parameters",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_absl//absl/types:optional",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "aes_cmac_proto_serialization_test",
+    size = "small",
+    srcs = ["aes_cmac_proto_serialization_test.cc"],
+    deps = [
+        ":aes_cmac_key",
+        ":aes_cmac_parameters",
+        ":aes_cmac_proto_serialization",
+        "//tink:insecure_secret_key_access",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink/internal:mutable_serialization_registry",
+        "//tink/internal:proto_key_serialization",
+        "//tink/internal:proto_parameters_serialization",
+        "//proto:aes_cmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/subtle:random",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "hmac_parameters_test",
+    size = "small",
+    srcs = ["hmac_parameters_test.cc"],
+    deps = [
+        ":hmac_parameters",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "hmac_key_test",
+    srcs = ["hmac_key_test.cc"],
+    deps = [
+        ":hmac_key",
+        ":hmac_parameters",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_absl//absl/types:optional",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "hmac_proto_serialization_test",
+    srcs = ["hmac_proto_serialization_test.cc"],
+    deps = [
+        ":hmac_key",
+        ":hmac_parameters",
+        ":hmac_proto_serialization",
+        "//tink:insecure_secret_key_access",
+        "//tink:partial_key_access",
+        "//tink:restricted_data",
+        "//tink/internal:mutable_serialization_registry",
+        "//tink/internal:proto_key_serialization",
+        "//tink/internal:proto_parameters_serialization",
+        "//proto:common_cc_proto",
+        "//proto:hmac_cc_proto",
+        "//proto:tink_cc_proto",
+        "//tink/subtle:random",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "config_v0_test",
+    srcs = ["config_v0_test.cc"],
+    deps = [
+        ":config_v0",
+        ":key_gen_config_v0",
+        ":mac_key_templates",
+        "//tink:chunked_mac",
+        "//tink:key_gen_configuration",
+        "//tink:keyset_handle",
+        "//tink:mac",
+        "//tink/util:statusor",
+        "//tink/util:test_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
