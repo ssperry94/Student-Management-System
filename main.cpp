@@ -1,6 +1,11 @@
 #include <iostream>
 #include <iomanip>
-#include <C:\Users\ssper\OneDrive\Desktop\CPP\Projects\Student Managerv2\managerclasses.h>
+#include "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\winapifamily.h"
+#include <managerclasses.h>
+#include <cryptopp/aes.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/osrng.h> // Include Crypto++ random number generator
 
 //make user authentication in cpp
 //should see about maybe making a GUI at some point
@@ -10,7 +15,10 @@
 
 //CURRENTLY: Working on user authentication system in cpp only
 
+// try install visual studio to get vcpkg to work, or try something called conan
 //code with teacher options
+
+void testCryptoPP();
 void teacher();
 
 //code with student options
@@ -18,6 +26,8 @@ void student();
 
 int main()
 {
+    testCryptoPP();
+    std::system("pause");
     char input;
 
     std::cout << "Welcome to the Student Manager Program!\n";
@@ -299,4 +309,12 @@ void student()
         std::cout << '\n';
 
     }
+}
+
+void testCryptoPP()
+{
+    CryptoPP::AutoSeededRandomPool rng;
+
+    int randomNum = rng.GenerateWord32();
+    std::cout << randomNum << '\n';
 }
