@@ -2,10 +2,10 @@
 #include <iomanip>
 #include "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\winapifamily.h"
 #include <managerclasses.h>
-#include <cryptopp/aes.h>
-#include <cryptopp/modes.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/osrng.h> // Include Crypto++ random number generator
+#include <aes.h>
+#include <modes.h>
+#include <filters.h>
+#include <osrng.h> // Include Crypto++ random number generator
 
 //make user authentication in cpp
 //should see about maybe making a GUI at some point
@@ -15,7 +15,8 @@
 
 //CURRENTLY: Working on user authentication system in cpp only
 
-// try install visual studio to get vcpkg to work, or try something called conan
+// ISSUE IDENTIFIED (maybe) : uninstall current 32-bit MinGW and get 64-bit version instead
+//reconfigure VS Code and CMake to use that version instead (potentially reinstall library too)
 //code with teacher options
 
 void testCryptoPP();
