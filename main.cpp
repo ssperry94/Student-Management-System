@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iomanip>
-#include "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\winapifamily.h"
+//#include "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\winapifamily.h"
 #include <managerclasses.h>
 #include <aes.h>
 #include <modes.h>
