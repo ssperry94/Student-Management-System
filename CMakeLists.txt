@@ -19,7 +19,7 @@ include_directories("C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0
 include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2")
 include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/include/cryptopp")
 
-set(SOURCES main.cpp source.cpp)
+set(SOURCES main.cpp source.cpp user_auth.cpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCES})

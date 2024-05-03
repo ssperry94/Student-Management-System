@@ -1,10 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <managerclasses.h>
-#include <aes.h>
-#include <modes.h>
-#include <filters.h>
-#include <osrng.h> // Include Crypto++ random number generator
+#include <user_auth.h>
 
 //make user authentication in cpp
 //write real documentation on how to use, functions, etc
@@ -315,8 +312,19 @@ void student()
 
 void testCryptoPP()
 {
-    CryptoPP::AutoSeededRandomPool rng;
+    static constexpr size_t AES_KEY_SIZE = 256 / 8;
 
-    int randomNum = rng.GenerateWord32();
-    std::cout << randomNum << '\n';
+    std::string message = "Hello world.";
+    std::vector<uint8_t> key(AES_KEY_SIZE);
+    std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+
+    CryptoPP::NonblockingRng rand;
+    rand.GenerateBlock(key.data(), key.size());
+    rand.GenerateBlock(iv.data(), iv.size());
+
+    std::string encrypted = smanEncrypt::encrypt(message, key, iv);
+    std::cout << "Before encryption: " << message << '\n';
+    std::cout << "After encryption: " << encrypted << '\n';
+
+    std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
 }
