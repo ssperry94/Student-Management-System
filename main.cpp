@@ -7,7 +7,6 @@
 #include <osrng.h> // Include Crypto++ random number generator
 
 //make user authentication in cpp
-//should see about maybe making a GUI at some point
 //write real documentation on how to use, functions, etc
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
@@ -243,7 +242,7 @@ void student()
             {
                 case 1:
                 {
-                    std::vector <std::string> student_info = student1.get_student("students.csv", idnum);
+                    std::vector <std::string> student_info = student1.get_student(smanage::student_path, idnum);
                     std::cout << "ID Number: " << student_info[0] << '\n';
                     std::cout << "First Name: " << student_info[1] << '\n';
                     std::cout << "Last Name: " << student_info[2] << '\n';
@@ -254,7 +253,7 @@ void student()
 
                 case 2:
                 {
-                    std::vector <std::string> info = student1.get_student("schedule.csv", idnum);
+                    std::vector <std::string> info = student1.get_student(smanage::schedule_path, idnum);
                     if(info[0] == "1")
                     {
                         std::cout << "ERROR, no schedule found for " << idnum << '\n';
@@ -277,7 +276,7 @@ void student()
 
                 case 3:
                 {
-                    std::vector <std::string> info = student1.get_student("grades.csv", idnum);
+                    std::vector <std::string> info = student1.get_student(smanage::grade_path, idnum);
                     if(info[0] == "1")
                     {
                         std::cout << "ERROR, no schedule found for " << idnum << '\n';

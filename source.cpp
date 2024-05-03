@@ -131,7 +131,7 @@ Student::Student()
     {
         std::cout << "Please enter your Student ID number: ";
         std::getline(std::cin,idnum);
-        std::vector <std::string> info = get_student("students.csv", idnum);
+        std::vector <std::string> info = get_student(smanage::student_path, idnum);
         if(info[0] == "1")
         {
             std::cout << "Couldn't find Student. Please try again.\n";
