@@ -1,4 +1,9 @@
-#include <C:\Users\ssper\OneDrive\Desktop\CPP\Projects\Student Managerv2\managerclasses.h>
+#include <managerclasses.h>
+
+//smanage global external variables
+std::string smanage::student_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/students.csv";
+std::string smanage::schedule_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/schedule.csv";
+std::string smanage::grade_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/grades.csv";
 
 // User Class Methods
 std::string User::find_student()
@@ -9,7 +14,7 @@ std::string User::find_student()
     delete_ending_spaces(name);
     std::cout << '\n';
 
-    std::fstream student_file{"students.csv", std::ios::in | std::ios::binary};
+    std::fstream student_file{smanage::student_path, std::ios::in | std::ios::binary};
 
     if(!student_file)
     {
@@ -209,7 +214,7 @@ void Teacher::addStudent()
     student_info.push_back(lastname);
     student_info.push_back(birthday);
 
-    int error_check = write_to_outfile(student_info, "students.csv");
+    int error_check = write_to_outfile(student_info, smanage::student_path);
     if(error_check == 0)
     {
         std::cout << "\nData successfully added.\n";
@@ -271,7 +276,7 @@ void Teacher::add_student_schedule(std::string idnum)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     
-    int error_check = write_to_outfile(schedule, "schedule.csv");
+    int error_check = write_to_outfile(schedule, smanage::schedule_path);
     if(error_check == 0)
     {
         std::cout << "Data successfully added.\n";
@@ -284,7 +289,7 @@ void Teacher::add_student_schedule(std::string idnum)
 
 void Teacher::add_grades(std::string idnum)
 {
-    std::vector <std::string> schedule = get_student("schedule.csv", idnum), grades;
+    std::vector <std::string> schedule = get_student(smanage::schedule_path, idnum), grades;
     if(idnum == "1")
     {
         std::cout << "ERROR: no student with that ID number was found.\n";
@@ -301,7 +306,7 @@ void Teacher::add_grades(std::string idnum)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         grades.push_back(grade);
     }
-    int error_checker = write_to_outfile(grades, "grades.csv");
+    int error_checker = write_to_outfile(grades, smanage::grade_path);
     if(error_checker == 0)
     {
         std::cout << "Data entered successfully.";
@@ -315,14 +320,14 @@ void Teacher::add_grades(std::string idnum)
 void Teacher::reset()
 
 {
-    std::ofstream student_info{"students.csv"};
+    std::ofstream student_info{smanage::student_path};
     student_info << "Student ID Number,";
     student_info << "Firstname,";
     student_info << "Lastname,";
     student_info << "DOB,\n";
     student_info.close();
 
-    std::ofstream student_schedule{"schedule.csv"};
+    std::ofstream student_schedule{smanage::schedule_path};
     student_schedule << "Student ID Number,";
     student_schedule << "Amount of Classes Taken,";
     student_schedule << "Class Name,";
@@ -339,7 +344,7 @@ void Teacher::reset()
     student_schedule << "Days of the Week,\n";
     student_schedule.close();
 
-    std::ofstream student_grades{"grades.csv"};
+    std::ofstream student_grades{smanage::grade_path};
     student_grades << "Student ID Number,";
     student_grades << "Class Name,";
     student_grades << "Class Grade,";

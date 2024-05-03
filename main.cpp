@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-//#include "C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\winapifamily.h"
 #include <managerclasses.h>
 #include <aes.h>
 #include <modes.h>
@@ -13,11 +12,9 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: Working on user authentication system in cpp only
+//CURRENTLY: Troubleshoot app and ensure that all works well with the new compiler
 
-// ISSUE IDENTIFIED (maybe) : uninstall current 32-bit MinGW and get 64-bit version instead
-//reconfigure VS Code and CMake to use that version instead (potentially reinstall library too)
-//code with teacher options
+//make new directory for csv files, fix functions accordingly
 
 void testCryptoPP();
 void teacher();
@@ -108,8 +105,13 @@ void teacher()
 
                 case 4:
                 {
-                    std::string idnum = teacher1.find_student();;
-                    std::vector <std::string> info = teacher1.get_student("students.csv", idnum);
+                    std::string idnum = teacher1.find_student();
+                    if(idnum == "1")
+                    {
+                        std::cout << "No Student ID Number was found.\n\n";
+                        break;
+                    }
+                    std::vector <std::string> info = teacher1.get_student(smanage::student_path, idnum);
                     if(info.empty())
                     {
                         std::cout << "No student ID was found.\n";
@@ -128,7 +130,7 @@ void teacher()
                 case 5:
                 {
                     std::string idnum = teacher1.find_student();
-                    std::vector <std::string> info = teacher1.get_student("schedule.csv", idnum);
+                    std::vector <std::string> info = teacher1.get_student(smanage::schedule_path, idnum);
                     if(info.empty())
                     {
                         std::cout << "No student ID was found.\n";
@@ -155,7 +157,7 @@ void teacher()
                 case 6:
                 {
                     std::string idnum = teacher1.find_student();
-                    std::vector <std::string> info = teacher1.get_student("grades.csv", idnum);
+                    std::vector <std::string> info = teacher1.get_student(smanage::grade_path, idnum);
                     if(info.empty())
                     {
                         std::cout << "No student ID was found.\n";

@@ -14,6 +14,12 @@
 #include <string>
 #include <limits>
 
+namespace smanage
+{
+    extern std::string student_path;
+    extern std::string schedule_path;
+    extern std::string grade_path;
+};
 //class for shared methods between students and teachers
 class User
 {
