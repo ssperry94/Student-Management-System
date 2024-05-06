@@ -8,9 +8,10 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: Troubleshoot app and ensure that all works well with the new compiler
+//CURRENTLY: Create mechanism by which user authentication will take place
 
-//make new directory for csv files, fix functions accordingly
+//figure out how storing initalization vectors will work
+
 
 void testCryptoPP();
 void teacher();
@@ -315,26 +316,16 @@ void testCryptoPP()
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
     std::string message = "Hello world.";
     std::vector<uint8_t> key(AES_KEY_SIZE);
-    std::ofstream keyfile;
-    keyfile.open("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key");
-    if(!keyfile)
-    {
-        std::cout << "ERROR, key file was not found.\n";
-        return;
-    }
-    smanEncrypt::generate_key(keyfile, AES_KEY_SIZE);
+
+
+    smanEncrypt::generate_key(AES_KEY_SIZE);
     std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
-    CryptoPP::NonblockingRng rand;
-    rand.GenerateBlock(iv.data(), iv.size());
-
-    keyfile.close();
-    smanEncrypt::retrieve_key("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key", key);
+    smanEncrypt::generate_iv(iv);
+    smanEncrypt::retrieve_key(key);
     std::string encrypted = smanEncrypt::encrypt(message, key, iv);
     std::cout << "Before encryption: " << message << '\n';
     std::cout << "After encryption: " << encrypted << '\n';
 
     std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
-
-    keyfile.close();
 }

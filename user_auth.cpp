@@ -1,5 +1,6 @@
 #include <user_auth.h>
 
+std::string smanEncrypt::key_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key";
 
 std::string smanEncrypt::encrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv)
 {
@@ -43,9 +44,16 @@ std::string smanEncrypt::decrypt(std::string &input, std::vector <uint8_t> key, 
     return decrypted_text;
 }
 
-void smanEncrypt::generate_key(std::ofstream &keyfile, size_t size)
+void smanEncrypt::generate_key(size_t key_size)
 {
-    std::vector <uint8_t> key(size);
+    std::ofstream keyfile;
+    keyfile.open(key_path);
+    if(!keyfile)
+    {
+        std::cout << "File couldn't be opened.\n";
+        return;
+    }
+    std::vector <uint8_t> key(key_size);
     CryptoPP::NonblockingRng rng;
     rng.GenerateBlock(key.data(), key.size());
 
@@ -53,25 +61,24 @@ void smanEncrypt::generate_key(std::ofstream &keyfile, size_t size)
     {
         keyfile << k;
     }
+    keyfile.close();
 }
 
 //read all data from .key file, then pump into a string, then turn string into a vector
-void smanEncrypt::retrieve_key(std::string keyfile, std::vector <uint8_t> &key)
+void smanEncrypt::retrieve_key(std::vector <uint8_t> &key)
 {   
     std::string key_str; 
-    CryptoPP::FileSource infile(keyfile.c_str(), true, new CryptoPP::StringSink(key_str)); 
+    CryptoPP::FileSource infile(key_path.c_str(), true, new CryptoPP::StringSink(key_str)); 
 
-    for(auto i = 0; i < key.size(); i++)
+    for(int i = 0; i < key.size(); i++)
     {
-        std::cout << key_str[i] << '\n';
         key[i] = key_str[i];
     }
     key.shrink_to_fit();
-    std::cout << "Size of vector: " << key.size() << '\n';
+}
 
-    std::cout << "Everyting in array: \n";
-    for(int i = 0; i < key.size(); i++)
-    {
-        std::cout << key[i] << '\n';
-    }
+void smanEncrypt::generate_iv(std::vector <uint8_t> &iv)
+{
+    CryptoPP::NonblockingRng rand;
+    rand.GenerateBlock(iv.data(), iv.size());
 }
