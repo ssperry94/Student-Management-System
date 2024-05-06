@@ -55,7 +55,20 @@ void smanEncrypt::generate_key(std::ofstream &keyfile, size_t size)
     }
 }
 
-std::vector <uint8_t> smanEncrypt::retrieve_key(std::ofstream &keyfile, std::vector <uint8_t> key)
-{
-    
+//read all data from .key file, then pump into a string, then turn string into a vector
+std::vector <uint8_t> smanEncrypt::retrieve_key(std::string keyfile, std::vector <uint8_t> key)
+{   
+    std::string key_str; 
+    std::vector <uint8_t> key_actual;
+    CryptoPP::FileSource infile(keyfile.c_str(), true, new CryptoPP::StringSink(key_str)); 
+    std::cout << key_str << '\n';
+
+    std::cout << "After placing in vector...\n";
+    for(char character : key_str)
+    {
+        key_actual.push_back(character);
+    }
+
+    return key_actual;
+
 }

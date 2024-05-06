@@ -337,4 +337,8 @@ void testCryptoPP()
     }
 
     smanEncrypt::generate_key(key, 256);
+    key.close();
+
+    std::vector <uint8_t> key_vector(256);
+    smanEncrypt::retrieve_key("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key", key_vector);
 }
