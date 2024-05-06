@@ -42,3 +42,20 @@ std::string smanEncrypt::decrypt(std::string &input, std::vector <uint8_t> key, 
 
     return decrypted_text;
 }
+
+void smanEncrypt::generate_key(std::ofstream &keyfile, size_t size)
+{
+    std::vector <uint8_t> key(size);
+    CryptoPP::NonblockingRng rng;
+    rng.GenerateBlock(key.data(), key.size());
+
+    for(uint8_t k : key)
+    {
+        keyfile << k;
+    }
+}
+
+std::vector <uint8_t> smanEncrypt::retrieve_key(std::ofstream &keyfile, std::vector <uint8_t> key)
+{
+    
+}

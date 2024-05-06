@@ -8,8 +8,6 @@ set(os_type 64)
 
 #setting path straight to cryptopp .lib file
 set(CryptoLibDir "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/lib")
-file(GLOB CryptoLibFiles "${CryptoLibDir}/*")
-message(STATUS "Crypto library files: ${CryptoLibFiles}")
 
 
 

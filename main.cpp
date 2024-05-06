@@ -312,19 +312,29 @@ void student()
 
 void testCryptoPP()
 {
-    static constexpr size_t AES_KEY_SIZE = 256 / 8;
+    // static constexpr size_t AES_KEY_SIZE = 256 / 8;
 
-    std::string message = "Hello world.";
-    std::vector<uint8_t> key(AES_KEY_SIZE);
-    std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+    // std::string message = "Hello world.";
+    // std::vector<uint8_t> key(AES_KEY_SIZE);
+    // std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
-    CryptoPP::NonblockingRng rand;
-    rand.GenerateBlock(key.data(), key.size());
-    rand.GenerateBlock(iv.data(), iv.size());
+    // CryptoPP::NonblockingRng rand;
+    // rand.GenerateBlock(key.data(), key.size());
+    // rand.GenerateBlock(iv.data(), iv.size());
 
-    std::string encrypted = smanEncrypt::encrypt(message, key, iv);
-    std::cout << "Before encryption: " << message << '\n';
-    std::cout << "After encryption: " << encrypted << '\n';
+    // std::string encrypted = smanEncrypt::encrypt(message, key, iv);
+    // std::cout << "Before encryption: " << message << '\n';
+    // std::cout << "After encryption: " << encrypted << '\n';
 
-    std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
+    // std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
+
+    std::ofstream key;
+    key.open("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key");
+    if(!key)
+    {
+        std::cout << "ERROR, key file was not found.\n";
+        return;
+    }
+
+    smanEncrypt::generate_key(key, 256);
 }
