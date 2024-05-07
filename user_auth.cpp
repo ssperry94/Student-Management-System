@@ -17,7 +17,8 @@ std::string smanEncrypt::encrypt(std::string &input, std::vector <uint8_t> key, 
     new CryptoPP::StreamTransformationFilter(
         aes_cbc,
         new CryptoPP::Base64Encoder(
-            new CryptoPP::StringSink(encrypted_text)
+            new CryptoPP::StringSink(encrypted_text),
+            false
             )
         )
     );
@@ -87,9 +88,11 @@ void smanEncrypt::generate_iv(std::vector <uint8_t> &iv)
 
 //UserRegistrator class functions
 
-smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher)
+smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string username, std::string password)
 {
     this->is_teacher = is_teacher;
+    this->username = username;
+    this->password = password;
 
     std::ifstream teacher_file, student_file;
     teacher_file.open(teacher_path);
@@ -101,15 +104,42 @@ smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher)
         exit(1);
     }
 
-    std::cout << "Class initalized successfully.\n";
+    teacher_file.close();
+    student_file.close();
 }
 
-void smanEncrypt::UserRegistrator::register_teacher()
+void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 {
+    std::fstream outfile;
+    std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+    generate_iv(iv);
 
+    if(is_teacher)
+    {
+        outfile.open(teacher_path, std::ios::app);
+    }
+    else
+    {
+        //code for student path
+    }
+
+    outfile << encrypt(username, key, iv) << ',' << encrypt(password, key, iv) << ',';
+    
+
+
+    outfile.close();
 }
 
-void smanEncrypt::UserRegistrator::register_student()
+void smanEncrypt::UserRegistrator::reset()
 {
+    //reseting teacher login..
+    std::ofstream teacher, student;
+    teacher.open(teacher_path);
+    student.open(student_path);
 
+    teacher << "Username,Password,Initalization Vector\n";
+    student << "Username,Password,Initalization Vector\n";
+
+    teacher.close();
+    student.close();
 }

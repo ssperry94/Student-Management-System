@@ -313,8 +313,8 @@ void student()
 
 void testCryptoPP()
 {
-    smanEncrypt::UserRegistrator registrator(true);
-    std::system("pause");
+    smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
+    registrator.reset();
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
     std::string message = "Hello world.";
     std::vector<uint8_t> key(AES_KEY_SIZE);
@@ -325,6 +325,8 @@ void testCryptoPP()
 
     smanEncrypt::generate_iv(iv);
     smanEncrypt::retrieve_key(key);
+
+    registrator.add_account(key);
     std::string encrypted = smanEncrypt::encrypt(message, key, iv);
     std::cout << "Before encryption: " << message << '\n';
     std::cout << "After encryption: " << encrypted << '\n';
