@@ -313,6 +313,8 @@ void student()
 
 void testCryptoPP()
 {
+    smanEncrypt::UserRegistrator registrator(true);
+    std::system("pause");
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
     std::string message = "Hello world.";
     std::vector<uint8_t> key(AES_KEY_SIZE);
