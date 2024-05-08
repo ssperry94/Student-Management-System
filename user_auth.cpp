@@ -114,13 +114,6 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
     std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
     generate_iv(iv);
 
-    std::cout << "IV before entering file: \n";
-    for(auto item : iv)
-    {
-        std::cout << item << ',';
-    }
-    std::cout << '\n';
-
     if(is_teacher)
     {
         outfile.open(teacher_path, std::ios::app);
@@ -139,30 +132,43 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 
 void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <uint8_t> &iv)
 {
-    for(unsigned char item: iv)
-    {
-        outfile << item;
-    }
-    outfile << ",\n";
+    //turn vector into base64 string
+    std::string iv_base64;
+    CryptoPP::StringSource(
+        iv.data(),
+        iv.size(),
+        true,
+        new CryptoPP::Base64Encoder(
+            new CryptoPP::StringSink(
+                iv_base64
+            )
+        )
+    );
+    outfile << iv_base64 << '\n';
 }
 
-//grabs iv from outfile, puts into a stringstream, then adds it to the iv vector
-//this should only be called after getting the correct username and password in order to make sure the file pointer is pointed at the correct spot
-/*CURRENTLY UNTESTED!!!! TEST ME FIRST THING!!!!*/
+/*Reads iv from respective CSV file and stores it in the iv vector
+-Should only ever be called after username and password have been gotten, and file pointer is pointing at it*/
 void smanEncrypt::UserRegistrator::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
 {
-    std::string iv_str;
-    uint8_t item;
-    int counter = 0;
+    std::string iv_str, iv_str_decoded;
+
     std::getline(infile, iv_str, ',');
-    std::cout << "iv_str: " << '\n';
 
     std::stringstream ss(iv_str);
+    CryptoPP::FileSource(
+        ss,
+        true,
+        new CryptoPP::Base64Decoder(
+            new CryptoPP::StringSink(
+                iv_str_decoded
+            )
+        )
+    );
 
-    while(ss >> item)
+    for(int i = 0; i < iv_str_decoded.length(); i++)
     {
-        iv[counter] = item;
-        counter++;
+        iv[i] = iv_str_decoded[i];
     }
 }
 void smanEncrypt::UserRegistrator::reset()

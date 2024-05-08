@@ -342,17 +342,5 @@ void testCryptoPP()
 
     registrator.retrieve_iv(teacher_file, iv);
 
-    std::cout << "Iv pulled from file...\n";
-    for(auto item : iv)
-    {
-        std::cout << item << ',';
-    }
-    std::cout << '\n';
     std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
-
-    // std::string encrypted = smanEncrypt::encrypt(message, key, iv);
-    // std::cout << "Before encryption: " << message << '\n';
-    // std::cout << "After encryption: " << encrypted << '\n';
-
-    // std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
 }
