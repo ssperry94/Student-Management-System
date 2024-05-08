@@ -19,8 +19,7 @@ namespace smanEncrypt
     class UserRegistrator 
     {
         private:
-            const std::string teacher_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv";
-            const std::string student_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/student_login.csv";
+            std::string filepath;
             bool is_teacher;
             std::string username, password;
 
@@ -32,6 +31,8 @@ namespace smanEncrypt
             void add_account(std::vector <uint8_t> key);
 
             void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
+
+            void retreive_account(std::string &username, std::string &password, std::vector <uint8_t> &iv);
 
             void reset(); //resets files for testing purposes (may repurpose later)
     };

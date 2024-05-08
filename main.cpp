@@ -314,6 +314,7 @@ void student()
 void testCryptoPP()
 {
     smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
+    std::string username, password;
     registrator.reset();
 
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
@@ -324,23 +325,11 @@ void testCryptoPP()
     smanEncrypt::generate_key(AES_KEY_SIZE);
     std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
-    //smanEncrypt::generate_iv(iv);
     smanEncrypt::retrieve_key(key);
 
     registrator.add_account(key);
 
-    std::ifstream teacher_file;
-    teacher_file.open("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv");
-
-    std::string *firstline = new std::string;
-    std::getline(teacher_file, *firstline);
-    delete firstline;
-
-    std::string username, password;
-    std::getline(teacher_file, username, ',');
-    std::getline(teacher_file, password, ',');
-
-    registrator.retrieve_iv(teacher_file, iv);
+    registrator.retreive_account(username, password, iv);
 
     std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
 }

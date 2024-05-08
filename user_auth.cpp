@@ -94,34 +94,36 @@ smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string usern
     this->username = username;
     this->password = password;
 
-    std::ifstream teacher_file, student_file;
-    teacher_file.open(teacher_path);
-    student_file.open(student_path);
-
-    if(!teacher_file || !student_file)
+    if(is_teacher)
     {
-        std::cerr << "Couldn't open outfiles, please check path to outfile.\n";
+        filepath = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv";
+    }
+    else
+    {
+        filepath = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/student_login.csv";
+    }
+
+    std::ifstream file{filepath};
+    if(!file)
+    {
+        std::cerr << "Couldn't open outfile. Please check file path.\n";
         exit(1);
     }
 
-    teacher_file.close();
-    student_file.close();
+    file.close();
 }
 
 void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 {
-    std::fstream outfile;
+    std::fstream outfile{filepath, std::ios::app};
+    if(!outfile)
+    {
+        std::cout << "Cannot open file.\n";
+        return;
+    }
+
     std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
     generate_iv(iv);
-
-    if(is_teacher)
-    {
-        outfile.open(teacher_path, std::ios::app);
-    }
-    else
-    {
-        //code for student path
-    }
 
     outfile << encrypt(username, key, iv) << ',' << encrypt(password, key, iv) << ',';
     write_iv(outfile, iv);
@@ -144,7 +146,7 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
             )
         )
     );
-    outfile << iv_base64 << '\n';
+    outfile << iv_base64 << ",\n";
 }
 
 /*Reads iv from respective CSV file and stores it in the iv vector
@@ -171,16 +173,32 @@ void smanEncrypt::UserRegistrator::retrieve_iv(std::ifstream &infile, std::vecto
         iv[i] = iv_str_decoded[i];
     }
 }
+
+void smanEncrypt::UserRegistrator::retreive_account(std::string &username, std::string &password, std::vector <uint8_t> &iv)
+{
+    std::ifstream infile{filepath};
+    if(!infile)
+    {
+        std::cerr << "Cannot open file.\n";
+        return;
+    }
+
+    std::string *firstline = new std::string;
+    std::getline(infile, *firstline);
+    delete firstline;
+
+    std::string encrypted_username, encrypted_password;
+    std::getline(infile, username, ',');
+    std::getline(infile, password, ',');
+
+    retrieve_iv(infile, iv);
+}
+
 void smanEncrypt::UserRegistrator::reset()
 {
     //reseting teacher login..
-    std::ofstream teacher, student;
-    teacher.open(teacher_path);
-    student.open(student_path);
+    std::ofstream file{filepath};
 
-    teacher << "Username,Password,Initalization Vector\n";
-    student << "Username,Password,Initalization Vector\n";
-
-    teacher.close();
-    student.close();
+    file << "Username,Password,Initalization Vector\n";
+    file.close();
 }
