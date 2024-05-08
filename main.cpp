@@ -315,21 +315,44 @@ void testCryptoPP()
 {
     smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
     registrator.reset();
+
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
-    std::string message = "Hello world.";
+    // std::string message = "Hello world.";
     std::vector<uint8_t> key(AES_KEY_SIZE);
 
 
     smanEncrypt::generate_key(AES_KEY_SIZE);
     std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
-    smanEncrypt::generate_iv(iv);
+    //smanEncrypt::generate_iv(iv);
     smanEncrypt::retrieve_key(key);
 
     registrator.add_account(key);
-    std::string encrypted = smanEncrypt::encrypt(message, key, iv);
-    std::cout << "Before encryption: " << message << '\n';
-    std::cout << "After encryption: " << encrypted << '\n';
 
-    std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
+    std::ifstream teacher_file;
+    teacher_file.open("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv");
+
+    std::string *firstline = new std::string;
+    std::getline(teacher_file, *firstline);
+    delete firstline;
+
+    std::string username, password;
+    std::getline(teacher_file, username, ',');
+    std::getline(teacher_file, password, ',');
+
+    registrator.retrieve_iv(teacher_file, iv);
+
+    std::cout << "Iv pulled from file...\n";
+    for(auto item : iv)
+    {
+        std::cout << item << ',';
+    }
+    std::cout << '\n';
+    std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
+
+    // std::string encrypted = smanEncrypt::encrypt(message, key, iv);
+    // std::cout << "Before encryption: " << message << '\n';
+    // std::cout << "After encryption: " << encrypted << '\n';
+
+    // std::cout << "After decryption: " << smanEncrypt::decrypt(encrypted, key, iv) << '\n';
 }

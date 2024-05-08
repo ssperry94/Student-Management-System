@@ -114,6 +114,13 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
     std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
     generate_iv(iv);
 
+    std::cout << "IV before entering file: \n";
+    for(auto item : iv)
+    {
+        std::cout << item << ',';
+    }
+    std::cout << '\n';
+
     if(is_teacher)
     {
         outfile.open(teacher_path, std::ios::app);
@@ -124,12 +131,40 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
     }
 
     outfile << encrypt(username, key, iv) << ',' << encrypt(password, key, iv) << ',';
-    
+    write_iv(outfile, iv);
 
 
     outfile.close();
 }
 
+void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <uint8_t> &iv)
+{
+    for(unsigned char item: iv)
+    {
+        outfile << item;
+    }
+    outfile << ",\n";
+}
+
+//grabs iv from outfile, puts into a stringstream, then adds it to the iv vector
+//this should only be called after getting the correct username and password in order to make sure the file pointer is pointed at the correct spot
+/*CURRENTLY UNTESTED!!!! TEST ME FIRST THING!!!!*/
+void smanEncrypt::UserRegistrator::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
+{
+    std::string iv_str;
+    uint8_t item;
+    int counter = 0;
+    std::getline(infile, iv_str, ',');
+    std::cout << "iv_str: " << '\n';
+
+    std::stringstream ss(iv_str);
+
+    while(ss >> item)
+    {
+        iv[counter] = item;
+        counter++;
+    }
+}
 void smanEncrypt::UserRegistrator::reset()
 {
     //reseting teacher login..

@@ -24,13 +24,18 @@ namespace smanEncrypt
             bool is_teacher;
             std::string username, password;
 
+            void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
+
         public:
             UserRegistrator(bool is_teacher, std::string username, std::string password);
 
             void add_account(std::vector <uint8_t> key);
 
+            void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
+
             void reset(); //resets files for testing purposes (may repurpose later)
     };
+
     //functions
     std::string encrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv);
     std::string decrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv);
