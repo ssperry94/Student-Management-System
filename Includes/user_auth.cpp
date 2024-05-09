@@ -182,6 +182,7 @@ void smanEncrypt::LoggingIn::retrieve_iv(std::ifstream &infile, std::vector <uin
         )
     );
 
+
     for(int i = 0; i < iv_str_decoded.length(); i++)
     {
         iv[i] = iv_str_decoded[i];
@@ -200,6 +201,7 @@ void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std
     std::string *firstline = new std::string;
     std::getline(infile, *firstline);
     delete firstline;
+
 
     std::getline(infile, entered_username, ',');
     std::getline(infile, entered_password, ',');

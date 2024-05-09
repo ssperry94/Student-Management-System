@@ -12,6 +12,7 @@ void handle_teacher_options()
     if(user_verify_option == 'L' || user_verify_option == 'l')
     {
         handle_logging_in(true);
+        std::system("pause");
     }
     else if(user_verify_option == 'R' || user_verify_option == 'r')
     {
@@ -267,7 +268,7 @@ void handle_student_options()
     }
 }
 
-bool handle_logging_in(bool is_teacher)
+void handle_logging_in(bool is_teacher)
 {
     std::string user_info_filepath;
     if(is_teacher)
@@ -278,10 +279,11 @@ bool handle_logging_in(bool is_teacher)
     {
         user_info_filepath = smanEncrypt::student_path;
     }
-
+    constexpr size_t AES_KEY_SIZE = 256 / 8;
     std::string username, password;
-    std::vector <uint8_t> key;
-    std::vector <uint8_t> iv;
+    std::string actual_username, actual_password;
+    std::vector <uint8_t> key(AES_KEY_SIZE);
+    std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
     //populate key vector
     smanEncrypt::retrieve_key(key);
@@ -293,10 +295,21 @@ bool handle_logging_in(bool is_teacher)
     std::cin >> password;
     std::cin.sync();
 
-    
+    smanEncrypt::LoggingIn user_login_handler(true, username, password);
+    user_login_handler.retreive_account(actual_username, actual_password, iv);
+    if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
+    {
+        std::cout << "True" << '\n';
+    }
+    else
+    {
+        std::cout << "False\n";
+    }
+
+
+}
 
     //need to make a class for loging in i think
 
     
-    return true;
-}
+    
