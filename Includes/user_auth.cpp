@@ -90,7 +90,7 @@ void smanEncrypt::generate_iv(std::vector <uint8_t> &iv)
 
 //UserRegistrator class functions
 
-smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string username, std::string password)
+smanEncrypt::UserCommon::UserCommon(bool is_teacher, std::string username, std::string password)
 {
     this->is_teacher = is_teacher;
     this->username = username;
@@ -98,11 +98,11 @@ smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string usern
 
     if(is_teacher)
     {
-        filepath = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv";
+        filepath = smanEncrypt::teacher_path;
     }
     else
     {
-        filepath = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/student_login.csv";
+        filepath = smanEncrypt::student_path;
     }
 
     std::ifstream file{filepath};
@@ -113,6 +113,12 @@ smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string usern
     }
 
     file.close();
+}
+
+smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string username, std::string password):
+smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
+{
+    //see constructor for UserCommon
 }
 
 void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
@@ -151,9 +157,15 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
     outfile << iv_base64 << "\n";
 }
 
+smanEncrypt::LoggingIn::LoggingIn(bool is_teacher, std::string username, std::string password):
+smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
+{
+    //see constructor for UserCommon
+}
+
 /*Reads iv from respective CSV file and stores it in the iv vector
 -Should only ever be called after username and password have been gotten, and file pointer is pointing at it*/
-void smanEncrypt::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
+void smanEncrypt::LoggingIn::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
 {
     std::string iv_str, iv_str_decoded;
 
@@ -176,7 +188,7 @@ void smanEncrypt::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
     }
 }
 
-void smanEncrypt::retreive_account(std::string &filepath, std::string &username, std::string &password, std::vector <uint8_t> &iv)
+void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv)
 {
     std::ifstream infile{filepath};
     if(!infile)
@@ -189,9 +201,8 @@ void smanEncrypt::retreive_account(std::string &filepath, std::string &username,
     std::getline(infile, *firstline);
     delete firstline;
 
-    std::string encrypted_username, encrypted_password;
-    std::getline(infile, username, ',');
-    std::getline(infile, password, ',');
+    std::getline(infile, entered_username, ',');
+    std::getline(infile, entered_password, ',');
 
     retrieve_iv(infile, iv);
 }

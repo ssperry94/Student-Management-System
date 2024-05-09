@@ -19,23 +19,37 @@ namespace smanEncrypt
     extern std::string teacher_path;
     extern std::string student_path;
 
+
+    //parent class containing shared attributes
+    class UserCommon
+    {
+        protected:
+            std::string filepath, username, password;
+            bool is_teacher;
+        
+        public:
+            UserCommon(bool is_teacher, std::string username, std::string password);
+    };
     //class for user registration
 
-    class UserRegistrator 
+    class UserRegistrator:public UserCommon 
     {
-        private:
-            std::string filepath;
-            bool is_teacher;
-            std::string username, password;
-
-            void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
-
         public:
             UserRegistrator(bool is_teacher, std::string username, std::string password);
 
             void add_account(std::vector <uint8_t> key);
 
+            void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
             void reset(); //resets files for testing purposes (may repurpose later)
+    };
+
+    //class for logging in
+    class LoggingIn:public UserCommon
+    {
+        public:
+            LoggingIn(bool is_teacher, std::string username, std::string password);
+            void retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv);
+            void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
     };
 
     //functions
@@ -44,8 +58,7 @@ namespace smanEncrypt
     void generate_key(size_t key_size);
     void generate_iv(std::vector <uint8_t> &iv);
     void retrieve_key(std::vector <uint8_t> &key);
-    void retreive_account(std::string &filepath, std::string &username, std::string &password, std::vector <uint8_t> &iv);
-    void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
+
 }
 
 #endif

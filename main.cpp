@@ -68,7 +68,8 @@ void testCryptoPP()
 
     registrator.add_account(key);
 
-    smanEncrypt::retreive_account(smanEncrypt::student_path, username, password, iv);
+    smanEncrypt::LoggingIn logger(false, "student", "123");
+    logger.retreive_account(username, password, iv);
 
     std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
 }

@@ -11,7 +11,7 @@ void handle_teacher_options()
 
     if(user_verify_option == 'L' || user_verify_option == 'l')
     {
-        //function for logging in
+        handle_logging_in(true);
     }
     else if(user_verify_option == 'R' || user_verify_option == 'r')
     {
@@ -291,6 +291,9 @@ bool handle_logging_in(bool is_teacher)
     std::cin >> username;
     std::cout << "Password: ";
     std::cin >> password;
+    std::cin.sync();
+
+    
 
     //need to make a class for loging in i think
 
