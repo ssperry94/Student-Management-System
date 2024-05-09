@@ -21,7 +21,7 @@ include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Manage
 include_directories("${SourceFileDir}")
 
 
-set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp)
+set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp ${SourceFileDir}/handling.cpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCES})

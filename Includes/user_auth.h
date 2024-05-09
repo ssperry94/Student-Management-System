@@ -1,3 +1,7 @@
+#ifndef USER_AUTH_H
+#define USER_AUTH_H 
+
+
 //contains functions and classes related to encrypted/decrypting and verifying user data
 
 #include <managerclasses.h>
@@ -44,3 +48,5 @@ namespace smanEncrypt
     void generate_iv(std::vector <uint8_t> &iv);
     void retrieve_key(std::vector <uint8_t> &key);
 }
+
+#endif
