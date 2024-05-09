@@ -146,7 +146,7 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
             )
         )
     );
-    outfile << iv_base64 << ",\n";
+    outfile << iv_base64 << "\n";
 }
 
 /*Reads iv from respective CSV file and stores it in the iv vector

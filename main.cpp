@@ -8,9 +8,7 @@
 //add a way to exit or erase if a mistake was made
 //add a way to edit information
 
-//CURRENTLY: Create mechanism by which user authentication will take place
-
-//figure out how storing initalization vectors will work
+//CURRENTLY: Structure all user_auth functions and integrate into main.cpp
 
 
 void testCryptoPP();
@@ -61,6 +59,20 @@ int main()
 void teacher()
 {
     Teacher teacher1;
+    char user_verify_option;
+
+    std::cout << "Would you like to log in, or register a new account?(L/R): ";
+    std::cin.get(user_verify_option);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if(user_verify_option == 'L' || user_verify_option == 'l')
+    {
+        //function for logging in
+    }
+    else if(user_verify_option == 'R' || user_verify_option == 'r')
+    {
+        //function for registering new account
+    }
     while(true)
     {
         std::string container;
@@ -313,7 +325,7 @@ void student()
 
 void testCryptoPP()
 {
-    smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
+    smanEncrypt::UserRegistrator registrator(false, "student", "123");
     std::string username, password;
     registrator.reset();
 
