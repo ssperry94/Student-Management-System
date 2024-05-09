@@ -151,10 +151,11 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
         new CryptoPP::Base64Encoder(
             new CryptoPP::StringSink(
                 iv_base64
-            )
+            ),
+            false
         )
     );
-    outfile << iv_base64 << "\n";
+    outfile << iv_base64 << ",\n";
 }
 
 smanEncrypt::LoggingIn::LoggingIn(bool is_teacher, std::string username, std::string password):
@@ -182,31 +183,38 @@ void smanEncrypt::LoggingIn::retrieve_iv(std::ifstream &infile, std::vector <uin
         )
     );
 
-
     for(int i = 0; i < iv_str_decoded.length(); i++)
     {
         iv[i] = iv_str_decoded[i];
     }
 }
 
-void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv)
+//populates username, password, and iv to compare in handle_logging_in(). takes a streampos to keep track of each line in file until the end of file is reached
+void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::streampos &current_pos)
 {
     std::ifstream infile{filepath};
+
     if(!infile)
     {
         std::cerr << "Cannot open file.\n";
         return;
     }
-
-    std::string *firstline = new std::string;
-    std::getline(infile, *firstline);
-    delete firstline;
+    infile.seekg(current_pos);
+    //if at the beginning of file, skip headers
+    if(current_pos == 0)
+    {
+        std::string *firstline = new std::string;
+        std::getline(infile, *firstline);
+        delete firstline;
+    }
 
 
     std::getline(infile, entered_username, ',');
     std::getline(infile, entered_password, ',');
 
+
     retrieve_iv(infile, iv);
+    current_pos = infile.tellg();
 }
 
 void smanEncrypt::UserRegistrator::reset()

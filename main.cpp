@@ -12,7 +12,7 @@ void testCryptoPP();
 
 int main()
 {
-    //testCryptoPP();
+    testCryptoPP();
     std::system("pause");
     char input;
 
@@ -53,6 +53,7 @@ int main()
 void testCryptoPP()
 {
     smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
+    smanEncrypt::UserRegistrator registrator2(true, "teacher1", "321");
     std::string username, password;
     registrator.reset();
 
@@ -67,9 +68,10 @@ void testCryptoPP()
     smanEncrypt::retrieve_key(key);
 
     registrator.add_account(key);
+    registrator2.add_account(key);
 
-    smanEncrypt::LoggingIn logger(true, "teacher", "123");
-    logger.retreive_account(username, password, iv);
+//     smanEncrypt::LoggingIn logger(true, "teacher", "123");
+//     logger.retreive_account(username, password, iv, 0);
 
-    std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
+//     std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
 }

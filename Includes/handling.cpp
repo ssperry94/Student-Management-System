@@ -280,36 +280,45 @@ void handle_logging_in(bool is_teacher)
         user_info_filepath = smanEncrypt::student_path;
     }
     constexpr size_t AES_KEY_SIZE = 256 / 8;
-    std::string username, password;
-    std::string actual_username, actual_password;
+    int tries = 0;
     std::vector <uint8_t> key(AES_KEY_SIZE);
-    std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+    
 
     //populate key vector
     smanEncrypt::retrieve_key(key);
 
-    //get username and password
-    std::cout << "Please enter your username and password:\nUsername: ";
-    std::cin >> username;
-    std::cout << "Password: ";
-    std::cin >> password;
-    std::cin.sync();
-
-    smanEncrypt::LoggingIn user_login_handler(true, username, password);
-    user_login_handler.retreive_account(actual_username, actual_password, iv);
-    if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
+    while(tries != 3)
     {
-        std::cout << "True" << '\n';
-    }
-    else
-    {
-        std::cout << "False\n";
-    }
+        std::string username, password;
+        std::string actual_username, actual_password;
+        std::streampos current_pos = std::ios::beg;
 
+        //get username and password
+        std::cout << "Please enter your username and password:\nUsername: ";
+        std::cin >> username;
+        std::cout << "Password: ";
+        std::cin >> password;
+        std::cin.sync();
 
+        smanEncrypt::LoggingIn user_login_handler(true, username, password);
+        while(true)
+        {
+            std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+            user_login_handler.retreive_account(actual_username, actual_password, iv, current_pos);
+
+            if(current_pos == -1)
+            {
+                break;
+            }
+            
+            if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
+            {
+                std::cout << "Success! Logging in..." << '\n';
+                return;
+            }
+        }
+        std::cout << "Incorrect username/password. Please try again.\n";
+        tries++;
+        current_pos = std::ios::beg;
+    }   
 }
-
-    //need to make a class for loging in i think
-
-    
-    

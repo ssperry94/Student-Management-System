@@ -48,7 +48,7 @@ namespace smanEncrypt
     {
         public:
             LoggingIn(bool is_teacher, std::string username, std::string password);
-            void retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv);
+            void retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::streampos &current_pos);
             void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
     };
 
