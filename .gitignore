@@ -1,11 +1,12 @@
-#ignore all csv, txt, and exe files files
+#ignore all csv, txt, and exe files (except CMAKE)
 *.csv
 *.txt 
 !CMakeLists.txt
 *.exe
 
-#ignores the vscode file
+#ignores vscode files and directories
 *.vscode
+*.vs
 
 #ignores my experiment files
 *exp.cpp

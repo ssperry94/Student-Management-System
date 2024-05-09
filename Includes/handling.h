@@ -8,5 +8,7 @@
 //main functions for handling each options
 void handle_teacher_options();
 void handle_student_options();
+bool handle_logging_in(bool is_teacher);
+bool handle_registration(bool is_teacher);
 
 #endif 

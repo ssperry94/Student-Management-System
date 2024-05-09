@@ -266,3 +266,34 @@ void handle_student_options()
 
     }
 }
+
+bool handle_logging_in(bool is_teacher)
+{
+    std::string user_info_filepath;
+    if(is_teacher)
+    {
+        user_info_filepath = smanEncrypt::teacher_path;
+    }
+    else
+    {
+        user_info_filepath = smanEncrypt::student_path;
+    }
+
+    std::string username, password;
+    std::vector <uint8_t> key;
+    std::vector <uint8_t> iv;
+
+    //populate key vector
+    smanEncrypt::retrieve_key(key);
+
+    //get username and password
+    std::cout << "Please enter your username and password:\nUsername: ";
+    std::cin >> username;
+    std::cout << "Password: ";
+    std::cin >> password;
+
+    //need to make a class for loging in i think
+
+    
+    return true;
+}

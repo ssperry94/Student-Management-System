@@ -16,7 +16,8 @@ namespace smanEncrypt
 {
     //filepath variables
     extern std::string key_path;
-    //add filepaths for teacher and student login info
+    extern std::string teacher_path;
+    extern std::string student_path;
 
     //class for user registration
 
@@ -34,10 +35,6 @@ namespace smanEncrypt
 
             void add_account(std::vector <uint8_t> key);
 
-            void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
-
-            void retreive_account(std::string &username, std::string &password, std::vector <uint8_t> &iv);
-
             void reset(); //resets files for testing purposes (may repurpose later)
     };
 
@@ -47,6 +44,8 @@ namespace smanEncrypt
     void generate_key(size_t key_size);
     void generate_iv(std::vector <uint8_t> &iv);
     void retrieve_key(std::vector <uint8_t> &key);
+    void retreive_account(std::string &filepath, std::string &username, std::string &password, std::vector <uint8_t> &iv);
+    void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
 }
 
 #endif

@@ -2,6 +2,8 @@
 
 //filepath variables
 std::string smanEncrypt::key_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/key.key";
+std::string smanEncrypt::teacher_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/teacher_login.csv";
+std::string smanEncrypt::student_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/student_login.csv";
 
 //non-class namespace functions
 std::string smanEncrypt::encrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv)
@@ -151,7 +153,7 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
 
 /*Reads iv from respective CSV file and stores it in the iv vector
 -Should only ever be called after username and password have been gotten, and file pointer is pointing at it*/
-void smanEncrypt::UserRegistrator::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
+void smanEncrypt::retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv)
 {
     std::string iv_str, iv_str_decoded;
 
@@ -174,7 +176,7 @@ void smanEncrypt::UserRegistrator::retrieve_iv(std::ifstream &infile, std::vecto
     }
 }
 
-void smanEncrypt::UserRegistrator::retreive_account(std::string &username, std::string &password, std::vector <uint8_t> &iv)
+void smanEncrypt::retreive_account(std::string &filepath, std::string &username, std::string &password, std::vector <uint8_t> &iv)
 {
     std::ifstream infile{filepath};
     if(!infile)
