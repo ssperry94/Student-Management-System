@@ -174,6 +174,24 @@ void handle_teacher_options()
 
 void handle_student_options()
 {
+    //ask if students is logging in or registering
+    char user_verify_option;
+
+    std::cout << "Would you like to log in, or register a new account?(L/R): ";
+    std::cin.get(user_verify_option);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    if(user_verify_option == 'L' || user_verify_option == 'l')
+    {
+        handle_logging_in(false);
+        std::system("pause");
+    }
+    // else if(user_verify_option == 'R' || user_verify_option == 'r')
+    // {
+    //     handle_registration(false);
+    //     std::cout << "User registered successfully!\n";
+    //     handle_logging_in(false);
+    // }
     Student student1;
     if(!student1.get_authorize_code())
     {
@@ -302,7 +320,7 @@ void handle_logging_in(bool is_teacher)
         std::cin >> password;
         std::cin.sync();
 
-        smanEncrypt::LoggingIn user_login_handler(true, username, password);
+        smanEncrypt::LoggingIn user_login_handler(is_teacher, username, password);
         while(true)
         {
             std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);

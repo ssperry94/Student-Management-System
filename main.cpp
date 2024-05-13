@@ -1,12 +1,9 @@
 #include <handling.h>
 
-//make user authentication in cpp
-//write real documentation on how to use, functions, etc
-//add a way to exit or erase if a mistake was made
-//add a way to edit information
+//CURRENTLY: Come up with way to structure student registration/login system
 
-//CURRENTLY: Structure all user_auth functions and integrate into main.cpp
-
+//to add_account() - add various if statements for getting the student id, then encrypting that along with all other user info
+//something similar for retrieve accounts, may need to make an overloaded function
 
 void testCryptoPP();
 
@@ -51,27 +48,17 @@ int main()
 
 
 void testCryptoPP()
-{
+{    
     smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
     smanEncrypt::UserRegistrator registrator2(true, "teacher1", "321");
     std::string username, password;
     registrator.reset();
 
     static constexpr size_t AES_KEY_SIZE = 256 / 8;
-    // std::string message = "Hello world.";
     std::vector<uint8_t> key(AES_KEY_SIZE);
-
-
-    smanEncrypt::generate_key(AES_KEY_SIZE);
-    //std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
     smanEncrypt::retrieve_key(key);
 
     registrator.add_account(key);
     registrator2.add_account(key);
-
-//     smanEncrypt::LoggingIn logger(true, "teacher", "123");
-//     logger.retreive_account(username, password, iv, 0);
-
-//     std::cout << smanEncrypt::decrypt(username, key, iv) << '\n' << smanEncrypt::decrypt(password, key, iv) << '\n';
 }
