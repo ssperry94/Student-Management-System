@@ -16,7 +16,9 @@ void handle_teacher_options()
     }
     else if(user_verify_option == 'R' || user_verify_option == 'r')
     {
-        //function for registering new account
+        handle_registration(true);
+        std::cout << "User registered successfully!\n";
+        handle_logging_in(true);
     }
     while(true)
     {
@@ -321,4 +323,53 @@ void handle_logging_in(bool is_teacher)
         tries++;
         current_pos = std::ios::beg;
     }   
+}
+
+void handle_registration(bool is_teacher)
+{
+    //set filepath
+    std::string user_info_filepath;
+    if(is_teacher)
+    {
+        user_info_filepath = smanEncrypt::teacher_path;
+    }
+    else
+    {
+        user_info_filepath = smanEncrypt::student_path;
+    }
+    constexpr size_t AES_KEY_SIZE = 256 / 8;
+    std::vector <uint8_t> key(AES_KEY_SIZE);
+    smanEncrypt::retrieve_key(key);
+
+    //ask for username and password
+
+    std::string username, password;
+    std::cout << "Pleased enter your desired username: ";
+    std::cin >> username;
+    std::cin.ignore(std::numeric_limits<std::streampos>::max(), '\n');
+
+    do
+    {
+        std::string attempt_1, attempt_2;
+        std::cout << "Please enter your password: ";
+        std::cin >> attempt_1;
+        std::cin.ignore(std::numeric_limits<std::streampos>::max(), '\n');
+        std::cout << "Please confirm your password: ";
+        std::cin >> attempt_2;
+        std::cin.ignore(std::numeric_limits<std::streampos>::max(), '\n');
+
+        if(attempt_1 == attempt_2)
+        {
+            std::cout << "Passwords match! Registering user...\n";
+            password = attempt_1;
+            break;
+        }
+
+        std::cout << "Passwords do not match, please retry.\n";
+    } while(true);
+
+    //created UserRegistrator class
+    smanEncrypt::UserRegistrator registrator(true, username, password);
+    //add account
+    registrator.add_account(key);
 }

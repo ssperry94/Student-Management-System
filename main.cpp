@@ -63,7 +63,7 @@ void testCryptoPP()
 
 
     smanEncrypt::generate_key(AES_KEY_SIZE);
-    std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+    //std::vector<uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
     smanEncrypt::retrieve_key(key);
 

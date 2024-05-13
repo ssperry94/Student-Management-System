@@ -192,7 +192,7 @@ void smanEncrypt::LoggingIn::retrieve_iv(std::ifstream &infile, std::vector <uin
 //populates username, password, and iv to compare in handle_logging_in(). takes a streampos to keep track of each line in file until the end of file is reached
 void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::streampos &current_pos)
 {
-    std::ifstream infile{filepath};
+    std::ifstream infile{filepath, std::ios::binary};
 
     if(!infile)
     {
@@ -215,6 +215,7 @@ void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std
 
     retrieve_iv(infile, iv);
     current_pos = infile.tellg();
+    infile.close();
 }
 
 void smanEncrypt::UserRegistrator::reset()
