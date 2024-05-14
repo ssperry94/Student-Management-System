@@ -11,14 +11,14 @@ void handle_teacher_options()
 
     if(user_verify_option == 'L' || user_verify_option == 'l')
     {
-        handle_logging_in(true);
+        handle_logging_in();
         std::system("pause");
     }
     else if(user_verify_option == 'R' || user_verify_option == 'r')
     {
         handle_registration(true);
         std::cout << "User registered successfully!\n";
-        handle_logging_in(true);
+        handle_logging_in();
     }
     while(true)
     {
@@ -177,28 +177,26 @@ void handle_student_options()
     //ask if students is logging in or registering
     char user_verify_option;
 
+    //idnum that will become stduent class's idnumber
+    std::string idnum;
+
     std::cout << "Would you like to log in, or register a new account?(L/R): ";
     std::cin.get(user_verify_option);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     if(user_verify_option == 'L' || user_verify_option == 'l')
     {
-        handle_logging_in(false);
+        handle_logging_in(idnum);
         std::system("pause");
     }
-    // else if(user_verify_option == 'R' || user_verify_option == 'r')
-    // {
-    //     handle_registration(false);
-    //     std::cout << "User registered successfully!\n";
-    //     handle_logging_in(false);
-    // }
-    Student student1;
-    if(!student1.get_authorize_code())
+    else if(user_verify_option == 'R' || user_verify_option == 'r')
     {
-        return;
+        handle_registration(false);
+        std::cout << "User registered successfully!\n";
+        handle_logging_in(idnum);
     }
 
-    std::string idnum = student1.get_idnum();
+    Student student1(idnum);
     std::cout << "Greetings student!\n";
     while(true)
     {
@@ -288,17 +286,9 @@ void handle_student_options()
     }
 }
 
-void handle_logging_in(bool is_teacher)
+//for teachers
+void handle_logging_in()
 {
-    std::string user_info_filepath;
-    if(is_teacher)
-    {
-        user_info_filepath = smanEncrypt::teacher_path;
-    }
-    else
-    {
-        user_info_filepath = smanEncrypt::student_path;
-    }
     constexpr size_t AES_KEY_SIZE = 256 / 8;
     int tries = 0;
     std::vector <uint8_t> key(AES_KEY_SIZE);
@@ -320,7 +310,7 @@ void handle_logging_in(bool is_teacher)
         std::cin >> password;
         std::cin.sync();
 
-        smanEncrypt::LoggingIn user_login_handler(is_teacher, username, password);
+        smanEncrypt::LoggingIn user_login_handler(true, username, password);
         while(true)
         {
             std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
@@ -334,6 +324,58 @@ void handle_logging_in(bool is_teacher)
             if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
             {
                 std::cout << "Success! Logging in..." << '\n';
+                return;
+            }
+        }
+        std::cout << "Incorrect username/password. Please try again.\n";
+        tries++;
+        current_pos = std::ios::beg;
+    }   
+}
+
+//for students
+void handle_logging_in(std::string &idnum)
+{
+    constexpr size_t AES_KEY_SIZE = 256 / 8;
+    int tries = 0;
+    std::vector <uint8_t> key(AES_KEY_SIZE);
+    
+
+    //populate key vector
+    smanEncrypt::retrieve_key(key);
+
+    while(tries != 3)
+    {
+        std::string username, password;
+        std::string actual_username, actual_password;
+        std::streampos current_pos = std::ios::beg;
+
+        //get username and password
+        std::cout << "Please enter your username and password:\nUsername: ";
+        std::cin >> username;
+        std::cout << "Password: ";
+        std::cin >> password;
+        std::cin.sync();
+
+        smanEncrypt::LoggingIn user_login_handler(false, username, password);
+        while(true)
+        {
+            std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
+
+            //in order to avoid sending the wrong id to main, will send id to this variable, who will then send it to main upon verification
+            std::string idnum_hold;
+
+            user_login_handler.retreive_account(actual_username, actual_password, iv, idnum_hold, current_pos);
+
+            if(current_pos == -1)
+            {
+                break;
+            }
+            
+            if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
+            {
+                std::cout << "Success! Logging in..." << '\n';
+                idnum = smanEncrypt::decrypt(idnum_hold, key, iv);
                 return;
             }
         }
@@ -389,5 +431,10 @@ void handle_registration(bool is_teacher)
     //created UserRegistrator class
     smanEncrypt::UserRegistrator registrator(is_teacher, username, password);
     //add account
-    registrator.add_account(key);
+    int error = registrator.add_account(key);
+    if(error == 1)
+    {
+        std::cerr << "User not successfully registred, exiting program...";
+        exit(1);
+    }
 }

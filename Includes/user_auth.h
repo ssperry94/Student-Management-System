@@ -37,7 +37,7 @@ namespace smanEncrypt
         public:
             UserRegistrator(bool is_teacher, std::string username, std::string password);
 
-            void add_account(std::vector <uint8_t> key);
+            int add_account(std::vector <uint8_t> key);
 
             void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
             void write_idnum(std::fstream &outfile, std::string &idnum);
@@ -50,6 +50,7 @@ namespace smanEncrypt
         public:
             LoggingIn(bool is_teacher, std::string username, std::string password);
             void retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::streampos &current_pos);
+            void retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::string &idnum, std::streampos &current_pos);
             void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
     };
 

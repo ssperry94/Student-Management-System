@@ -49,7 +49,7 @@ class Student : public User
     public:
         
         //constructor used to authenticate student based on their student ID
-        Student();
+        Student(std::string &idnum);
 
         //getter for authenticated member
         bool get_authorize_code();

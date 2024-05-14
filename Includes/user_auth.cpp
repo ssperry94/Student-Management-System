@@ -121,25 +121,26 @@ smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
     //see constructor for UserCommon
 }
 
-void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
+int smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 {
     std::string idnum;
     std::fstream outfile{filepath, std::ios::app};
     if(!outfile)
     {
         std::cout << "Cannot open file.\n";
-        return;
+        return 1;
     }
 
     if(!is_teacher)
     {
         Teacher get_id_tech;
+        std::cin.sync();
         idnum = get_id_tech.find_student();
 
         if(idnum == "1")
         {
-            std::cout << "Student found. Please ensure that you are registered by your teacher beforehand.\n";
-            return;
+            std::cout << "Student not found. Please ensure that you are registered by your teacher beforehand.\n";
+            return 1;
         }
     }
 
@@ -158,6 +159,7 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 
 
     outfile.close();
+    return 0;
 }
 
 void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <uint8_t> &iv)
@@ -255,6 +257,37 @@ void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std
 
 
     retrieve_iv(infile, iv);
+    current_pos = infile.tellg();
+    infile.close();
+}
+
+void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::string &idnum, std::streampos &current_pos)
+{
+    std::ifstream infile{filepath, std::ios::binary};
+
+    if(!infile)
+    {
+        std::cerr << "Cannot open file.\n";
+        return;
+    }
+    infile.seekg(current_pos);
+    //if at the beginning of file, skip headers
+    if(current_pos == 0)
+    {
+        std::string *firstline = new std::string;
+        std::getline(infile, *firstline);
+        delete firstline;
+    }
+
+
+    std::getline(infile, entered_username, ',');
+    std::getline(infile, entered_password, ',');
+
+
+    retrieve_iv(infile, iv);
+
+    std::getline(infile, idnum, ',');
+    
     current_pos = infile.tellg();
     infile.close();
 }
