@@ -3,23 +3,40 @@
 void handle_teacher_options()
 {
     Teacher teacher1;
-    char user_verify_option;
-
-    std::cout << "Would you like to log in, or register a new account?(L/R): ";
-    std::cin.get(user_verify_option);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    if(user_verify_option == 'L' || user_verify_option == 'l')
+    while(true)
     {
-        handle_logging_in();
-        std::system("pause");
+        char user_verify_option;
+        std::cout << "Would you like to log in, register a new account, or quit?(L/R/Q): ";
+        std::cin.get(user_verify_option);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if(user_verify_option == 'L' || user_verify_option == 'l')
+        {
+            handle_logging_in();
+            std::system("pause");
+            break;
+        }
+
+        else if(user_verify_option == 'R' || user_verify_option == 'r')
+        {
+            handle_registration(true);
+            std::cout << "User registered successfully!\n";
+        }
+
+        else if(user_verify_option == 'Q' || user_verify_option == 'q')
+        {
+            return;
+        }
+
+        else
+        {
+            std::cout << "Improper input detected, please enter either 'L', 'R', or 'Q'. It is not case-sensitive.\n";
+            std::cin.sync();
+        }
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
-    else if(user_verify_option == 'R' || user_verify_option == 'r')
-    {
-        handle_registration(true);
-        std::cout << "User registered successfully!\n";
-        handle_logging_in();
-    }
+
     while(true)
     {
         std::string container;
@@ -174,26 +191,38 @@ void handle_teacher_options()
 
 void handle_student_options()
 {
-    //ask if students is logging in or registering
-    char user_verify_option;
-
     //idnum that will become stduent class's idnumber
     std::string idnum;
 
-    std::cout << "Would you like to log in, or register a new account?(L/R): ";
-    std::cin.get(user_verify_option);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while(true)
+    {
+        char user_verify_option;
 
-    if(user_verify_option == 'L' || user_verify_option == 'l')
-    {
-        handle_logging_in(idnum);
-        std::system("pause");
-    }
-    else if(user_verify_option == 'R' || user_verify_option == 'r')
-    {
-        handle_registration(false);
-        std::cout << "User registered successfully!\n";
-        handle_logging_in(idnum);
+        std::cout << "Would you like to log in, register a new account, or quit?(L/R/Q): ";
+        std::cin.get(user_verify_option);
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        if(user_verify_option == 'L' || user_verify_option == 'l')
+        {
+            handle_logging_in(idnum);
+            std::system("pause");
+            break;
+        }
+        else if(user_verify_option == 'R' || user_verify_option == 'r')
+        {
+            handle_registration(false);
+            std::cout << "User registered successfully!\n";
+        }
+
+        else if(user_verify_option == 'Q' || user_verify_option == 'q')
+        {
+            return;
+        }
+
+        else
+        {
+            std::cout << "Improper input detected, please enter either 'L', 'R', or 'Q'. It is not case-sensitive.\n";
+        }
     }
 
     Student student1(idnum);

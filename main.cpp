@@ -10,7 +10,6 @@ void testCryptoPP();
 int main()
 {
     testCryptoPP();
-    // std::system("pause");
     char input;
 
     std::cout << "Welcome to the Student Manager Program!\n";
@@ -49,9 +48,10 @@ int main()
 
 void testCryptoPP()
 {    
-    smanEncrypt::UserRegistrator user_reg(false, "","");
-    user_reg.reset();
-
+    smanEncrypt::UserRegistrator user_reg_student(false, "","");
+    smanEncrypt::UserRegistrator user_reg_teacher(true, "", "");
+    user_reg_student.reset();
+    user_reg_teacher.reset();
     // smanEncrypt::UserRegistrator registrator(false, "student", "123");
     // //smanEncrypt::UserRegistrator registrator2(false, "student1", "321");
     // std::string username, password;
