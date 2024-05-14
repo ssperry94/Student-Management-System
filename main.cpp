@@ -1,15 +1,14 @@
 #include <handling.h>
 
-//CURRENTLY: Come up with way to structure student registration/login system
+//CURRENTLY: add final touches to project before final push to github
 
-//to add_account() - add various if statements for getting the student id, then encrypting that along with all other user info
-//something similar for retrieve accounts, may need to make an overloaded function
-
-void testCryptoPP();
+//allow github to track all csv files
+//get .a files in a static lib files
+//change exe output dir in cmake
+//get cmake to know where csv files are
 
 int main()
 {
-    testCryptoPP();
     char input;
 
     std::cout << "Welcome to the Student Manager Program!\n";
@@ -43,29 +42,4 @@ int main()
     }
     std::cout << "Goodbye!\n";
     return 0;
-}
-
-
-void testCryptoPP()
-{    
-    smanEncrypt::UserRegistrator user_reg_student(false, "","");
-    smanEncrypt::UserRegistrator user_reg_teacher(true, "", "");
-    user_reg_student.reset();
-    user_reg_teacher.reset();
-    // smanEncrypt::UserRegistrator registrator(false, "student", "123");
-    // //smanEncrypt::UserRegistrator registrator2(false, "student1", "321");
-    // std::string username, password;
-    // registrator.reset();
-
-    // static constexpr size_t AES_KEY_SIZE = 256 / 8;
-    // std::vector<uint8_t> key(AES_KEY_SIZE);
-
-    // smanEncrypt::retrieve_key(key);
-
-    // registrator.add_account(key);
-    // //registrator2.add_account(key);
-
-    // std::string actual_idnum = "None";
-    // handle_logging_in(actual_idnum);
-    // std::cout << actual_idnum << '\n';
 }

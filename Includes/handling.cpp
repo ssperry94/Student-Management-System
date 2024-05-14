@@ -84,6 +84,13 @@ void handle_teacher_options()
                         std::cout << "No Student ID Number was found.\n\n";
                         break;
                     }
+
+                    if(idnum == "2")
+                    {
+                        std::cout << "Check infile path.\n";
+                        exit(1);
+                    }
+                    
                     std::vector <std::string> info = teacher1.get_student(smanage::student_path, idnum);
                     if(info.empty())
                     {

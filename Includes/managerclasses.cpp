@@ -1,9 +1,9 @@
 #include <managerclasses.h>
 
 //smanage global external variables
-std::string smanage::student_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/students.csv";
-std::string smanage::schedule_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/schedule.csv";
-std::string smanage::grade_path = "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/CSV Files/grades.csv";
+std::string smanage::student_path = "CSV Files/maincsvs/students.csv";
+std::string smanage::schedule_path = "CSV Files/maincsvs/schedule.csv";
+std::string smanage::grade_path = "CSV Files/maincsvs/grades.csv";
 
 // User Class Methods
 std::string User::find_student()

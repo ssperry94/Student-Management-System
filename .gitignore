@@ -1,5 +1,4 @@
 #ignore all csv, txt, and exe files (except CMAKE)
-*.csv
 *.txt 
 !CMakeLists.txt
 *.exe
@@ -16,7 +15,6 @@
 
 #ignore build files
 *build
-*bin
 
 #ignore documentation
 *Documentation
