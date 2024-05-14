@@ -5,12 +5,12 @@
 //contains functions and classes related to encrypted/decrypting and verifying user data
 
 #include <managerclasses.h>
-#include <aes.h>
-#include <base64.h>
-#include <osrng.h>
-#include <modes.h>
-#include <filters.h>
-#include <files.h>
+#include <cryptopp/aes.h>
+#include <cryptopp/base64.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/files.h>
 
 namespace smanEncrypt
 {

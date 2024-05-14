@@ -3,7 +3,7 @@
 //filepath variables
 std::string smanEncrypt::key_path = "key/key.key";
 std::string smanEncrypt::teacher_path = "CSV Files/logincsvs/teacher_login.csv";
-std::string smanEncrypt::student_path = "CSV Files/logincsvs/teacher_login/student_login.csv";
+std::string smanEncrypt::student_path = "CSV Files/logincsvs/student_login.csv";
 
 //non-class namespace functions
 std::string smanEncrypt::encrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv)

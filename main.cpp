@@ -2,10 +2,7 @@
 
 //CURRENTLY: add final touches to project before final push to github
 
-//allow github to track all csv files
 //get .a files in a static lib files
-//change exe output dir in cmake
-//get cmake to know where csv files are
 
 int main()
 {
