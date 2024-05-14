@@ -123,6 +123,7 @@ smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
 
 void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
 {
+    std::string idnum;
     std::fstream outfile{filepath, std::ios::app};
     if(!outfile)
     {
@@ -130,11 +131,30 @@ void smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
         return;
     }
 
+    if(!is_teacher)
+    {
+        Teacher get_id_tech;
+        idnum = get_id_tech.find_student();
+
+        if(idnum == "1")
+        {
+            std::cout << "Student found. Please ensure that you are registered by your teacher beforehand.\n";
+            return;
+        }
+    }
+
     std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
     generate_iv(iv);
 
     outfile << encrypt(username, key, iv) << ',' << encrypt(password, key, iv) << ',';
     write_iv(outfile, iv);
+
+    
+    if(!is_teacher)
+    {
+        idnum = encrypt(idnum, key, iv);
+        write_idnum(outfile, idnum);
+    }
 
 
     outfile.close();
@@ -155,7 +175,28 @@ void smanEncrypt::UserRegistrator::write_iv(std::fstream &outfile, std::vector <
             false
         )
     );
-    outfile << iv_base64 << ",\n";
+
+    //adds an endline character if user is a teacher, leaves it off if student
+    if(is_teacher)
+    {
+        outfile << iv_base64 << ",\n";
+    }
+    else
+    {
+        outfile << iv_base64 << ",";
+    }
+
+}
+
+void smanEncrypt::UserRegistrator::write_idnum(std::fstream &outfile, std::string &idnum)
+{
+    if(is_teacher)
+    {
+        std::cerr << "ERROR: must be a student to have an id number. Aborting program.\n";
+        exit(1);
+    }
+
+    outfile << idnum << ",\n";
 }
 
 smanEncrypt::LoggingIn::LoggingIn(bool is_teacher, std::string username, std::string password):
@@ -223,6 +264,14 @@ void smanEncrypt::UserRegistrator::reset()
     //reseting teacher login..
     std::ofstream file{filepath};
 
-    file << "Username,Password,Initalization Vector\n";
+    if(is_teacher)
+    {
+        file << "Username,Password,Initalization Vector\n";
+    }
+    else
+    {
+        file << "Username,Password,Initalization Vector,ID Number\n";
+    }
+    
     file.close();
 }

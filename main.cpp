@@ -49,8 +49,8 @@ int main()
 
 void testCryptoPP()
 {    
-    smanEncrypt::UserRegistrator registrator(true, "teacher", "123");
-    smanEncrypt::UserRegistrator registrator2(true, "teacher1", "321");
+    smanEncrypt::UserRegistrator registrator(false, "student", "123");
+    //smanEncrypt::UserRegistrator registrator2(false, "student1", "321");
     std::string username, password;
     registrator.reset();
 
@@ -60,5 +60,5 @@ void testCryptoPP()
     smanEncrypt::retrieve_key(key);
 
     registrator.add_account(key);
-    registrator2.add_account(key);
+    //registrator2.add_account(key);
 }

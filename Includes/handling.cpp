@@ -387,7 +387,7 @@ void handle_registration(bool is_teacher)
     } while(true);
 
     //created UserRegistrator class
-    smanEncrypt::UserRegistrator registrator(true, username, password);
+    smanEncrypt::UserRegistrator registrator(is_teacher, username, password);
     //add account
     registrator.add_account(key);
 }

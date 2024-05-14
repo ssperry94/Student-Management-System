@@ -126,25 +126,25 @@ void User::delete_ending_spaces(std::string &string)
 
 Student::Student()
 {
-    int tries = 0;
-    while(tries < 3)
-    {
-        std::cout << "Please enter your Student ID number: ";
-        std::getline(std::cin,idnum);
-        std::vector <std::string> info = get_student(smanage::student_path, idnum);
-        if(info[0] == "1")
-        {
-            std::cout << "Couldn't find Student. Please try again.\n";
-            tries++;
-        }
+    // int tries = 0;
+    // while(tries < 3)
+    // {
+    //     std::cout << "Please enter your Student ID number: ";
+    //     std::getline(std::cin,idnum);
+    //     std::vector <std::string> info = get_student(smanage::student_path, idnum);
+    //     if(info[0] == "1")
+    //     {
+    //         std::cout << "Couldn't find Student. Please try again.\n";
+    //         tries++;
+    //     }
 
-        else
-        {
-            authenticated = true;
-            return;
-        }
-    }
-    std::cout << "Too many tries, exiting the prgram...\n";
+    //     else
+    //     {
+    //         authenticated = true;
+    //         return;
+    //     }
+    // }
+    // std::cout << "Too many tries, exiting the prgram...\n";
 }
 
 bool Student::get_authorize_code()

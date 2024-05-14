@@ -40,6 +40,7 @@ namespace smanEncrypt
             void add_account(std::vector <uint8_t> key);
 
             void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
+            void write_idnum(std::fstream &outfile, std::string &idnum);
             void reset(); //resets files for testing purposes (may repurpose later)
     };
 
