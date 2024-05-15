@@ -7,14 +7,8 @@
 *.vscode
 *.vs
 
-#ignores my experiment files
-*exp.cpp
-
-#ignore git stuff
+#ignore irrelevent git stuff
 *Git Stuff
 
 #ignore build files
 *build
-
-#ignore documentation
-*Documentation
