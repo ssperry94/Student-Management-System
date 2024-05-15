@@ -1,8 +1,10 @@
 #include <handling.h>
 
-//CURRENTLY: add final touches to project before final push to github
+/*Main
 
-//get a few test case users and whatnot to each csv file
+-where main input happends
+-user either selects teacher or student, then appropriate function that handles each user type's options is called
+*/
 
 int main()
 {

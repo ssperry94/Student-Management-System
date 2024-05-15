@@ -3,6 +3,8 @@
 void handle_teacher_options()
 {
     Teacher teacher1;
+
+    //breaks when user is verified
     while(true)
     {
         char user_verify_option;
@@ -14,7 +16,7 @@ void handle_teacher_options()
         {
             handle_logging_in();
             std::system("pause");
-            break;
+            break; //end loop
         }
 
         else if(user_verify_option == 'R' || user_verify_option == 'r')
@@ -25,7 +27,7 @@ void handle_teacher_options()
 
         else if(user_verify_option == 'Q' || user_verify_option == 'q')
         {
-            return;
+            return; //leaves function and returns to main
         }
 
         else
@@ -37,8 +39,10 @@ void handle_teacher_options()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
+    //main loop that handles teacher options once logged in
     while(true)
     {
+        //stores input first as a string, then ensures that input will not cause a crash
         std::string container;
 
         std::cout << "\nPlease select which action you would like to take:\n";
@@ -54,6 +58,8 @@ void handle_teacher_options()
         if(teacher1.check_input(container))
         {
             int user_response = stoi(container);
+
+            //main options
             switch(user_response)
             {
                 case 1:
@@ -325,14 +331,14 @@ void handle_student_options()
 //for teachers
 void handle_logging_in()
 {
+    //initalize key
     constexpr size_t AES_KEY_SIZE = 256 / 8;
-    int tries = 0;
     std::vector <uint8_t> key(AES_KEY_SIZE);
     
-
     //populate key vector
     smanEncrypt::retrieve_key(key);
 
+    int tries = 0;
     while(tries != 3)
     {
         std::string username, password;
@@ -354,13 +360,13 @@ void handle_logging_in()
 
             if(current_pos == -1)
             {
-                break;
+                break; //means end of file was reached
             }
             
             if(smanEncrypt::decrypt(actual_username, key, iv) == username && smanEncrypt::decrypt(actual_password, key, iv) == password)
             {
                 std::cout << "Success! Logging in..." << '\n';
-                return;
+                return; //user is verified
             }
         }
         std::cout << "Incorrect username/password. Please try again.\n";
@@ -398,7 +404,7 @@ void handle_logging_in(std::string &idnum)
         {
             std::vector <uint8_t> iv(CryptoPP::AES::BLOCKSIZE);
 
-            //in order to avoid sending the wrong id to main, will send id to this variable, who will then send it to main upon verification
+            //in order to avoid sending the wrong id to main, will send id to this variable, who will then send it to idnum upon verification
             std::string idnum_hold;
 
             user_login_handler.retreive_account(actual_username, actual_password, iv, idnum_hold, current_pos);
@@ -421,18 +427,9 @@ void handle_logging_in(std::string &idnum)
     }   
 }
 
+//is_teacher should be false for students, true for teacher
 void handle_registration(bool is_teacher)
 {
-    //set filepath
-    std::string user_info_filepath;
-    if(is_teacher)
-    {
-        user_info_filepath = smanEncrypt::teacher_path;
-    }
-    else
-    {
-        user_info_filepath = smanEncrypt::student_path;
-    }
     constexpr size_t AES_KEY_SIZE = 256 / 8;
     std::vector <uint8_t> key(AES_KEY_SIZE);
     smanEncrypt::retrieve_key(key);

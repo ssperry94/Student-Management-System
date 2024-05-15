@@ -24,7 +24,7 @@ namespace smanage
 class User
 {
     public:
-        //returns all information about student inside of a vector to be processed later (may replace this with a class that reads entire file in)
+        //returns all information about student inside of a vector to be processed later
         std::vector <std::string> get_student(std::string filename, std::string idnum);
 
         //returns student id number from students.csv        
@@ -44,15 +44,10 @@ class Student : public User
 {
     private:
         std::string idnum;
-        //used to see if student has valid credientials, Student constructor changes to true if verified
-        bool authenticated = false;
     public:
         
-        //constructor used to authenticate student based on their student ID
+        //constructor used to set idnum member to a decrypted idnum found on student_login.csv
         Student(std::string &idnum);
-
-        //getter for authenticated member
-        bool get_authorize_code();
 
         //getter for idnum memberf
         std::string get_idnum();
@@ -69,7 +64,7 @@ class Teacher : public User
     public:
         //overloaded reset function that can reset any files that are misbehaving
         void reset();
-        //overloaded reset function that can reset any files that are misbehaving
+        //overloaded reset function that resets the specific file
         void reset(std::string filename);
 
         //adds a new student to student.csv

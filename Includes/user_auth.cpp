@@ -88,8 +88,7 @@ void smanEncrypt::generate_iv(std::vector <uint8_t> &iv)
     rand.GenerateBlock(iv.data(), iv.size());
 }
 
-//UserRegistrator class functions
-
+//UserCommon class used as parent class by which UserRegistrator and LogginIn inherit members from
 smanEncrypt::UserCommon::UserCommon(bool is_teacher, std::string username, std::string password)
 {
     this->is_teacher = is_teacher;
@@ -115,6 +114,7 @@ smanEncrypt::UserCommon::UserCommon(bool is_teacher, std::string username, std::
     file.close();
 }
 
+//UserRegistrator class functions
 smanEncrypt::UserRegistrator::UserRegistrator(bool is_teacher, std::string username, std::string password):
 smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
 {
@@ -201,6 +201,7 @@ void smanEncrypt::UserRegistrator::write_idnum(std::fstream &outfile, std::strin
     outfile << idnum << ",\n";
 }
 
+//Logging in class functions
 smanEncrypt::LoggingIn::LoggingIn(bool is_teacher, std::string username, std::string password):
 smanEncrypt::UserCommon::UserCommon(is_teacher, username, password)
 {
@@ -261,6 +262,7 @@ void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std
     infile.close();
 }
 
+//overloaded to take an ID number for logging in students
 void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std::string &entered_password, std::vector <uint8_t> &iv, std::string &idnum, std::streampos &current_pos)
 {
     std::ifstream infile{filepath, std::ios::binary};
@@ -294,7 +296,7 @@ void smanEncrypt::LoggingIn::retreive_account(std::string &entered_username, std
 
 void smanEncrypt::UserRegistrator::reset()
 {
-    //reseting teacher login..
+    //resetting either teacher or student login csv, depending on what is_teacher is set to
     std::ofstream file{filepath};
 
     if(is_teacher)

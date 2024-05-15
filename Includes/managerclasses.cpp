@@ -44,6 +44,7 @@ std::string User::find_student()
     return "1";
 }
 
+//will return 1 if it cannot find a entry on the disired folder, regaurdess of whether it is empty or not
 std::vector <std::string> User::get_student(std::string filename, std::string idnum)
 {
     if(idnum == "1")
@@ -93,8 +94,8 @@ std::vector <std::string> User::get_student(std::string filename, std::string id
 
     return student_arr;
 }
-//will return 1 if it cannot find a entry on the disired folder, regaurdess of whether it is empty or not
 
+//for all input that is 1 number, checks to make sure that is the case
 bool User::check_input(std::string container)
 {
     if(container.length() > 1)
@@ -108,6 +109,7 @@ bool User::check_input(std::string container)
     return true;
 }
 
+//deletes any accidental ending spaces that throws off file-reading/writing
 void User::delete_ending_spaces(std::string &string)
 {
     int last = string.length() - 1;
@@ -122,24 +124,19 @@ void User::delete_ending_spaces(std::string &string)
         return delete_ending_spaces(string);
     }
 }
-//Student Class Methods
 
+//Student Class Methods
 Student::Student(std::string &idnum)
 {
     this->idnum = idnum;
-}
-
-bool Student::get_authorize_code()
-{
-    return authenticated;
 }
 
 std::string Student::get_idnum()
 {
     return idnum;
 }
-// Teacher Class Methods
 
+// Teacher Class Methods
 const int Teacher::generate_ID()
 {
     std::random_device rd;

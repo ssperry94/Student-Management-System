@@ -30,8 +30,8 @@ namespace smanEncrypt
         public:
             UserCommon(bool is_teacher, std::string username, std::string password);
     };
+    
     //class for user registration
-
     class UserRegistrator:public UserCommon 
     {
         public:
@@ -41,7 +41,7 @@ namespace smanEncrypt
 
             void write_iv(std::fstream &outfile, std::vector <uint8_t> &iv);
             void write_idnum(std::fstream &outfile, std::string &idnum);
-            void reset(); //resets files for testing purposes (may repurpose later)
+            void reset(); //resets files for testing purposes
     };
 
     //class for logging in
@@ -54,7 +54,7 @@ namespace smanEncrypt
             void retrieve_iv(std::ifstream &infile, std::vector <uint8_t> &iv);
     };
 
-    //functions
+    //non-class related functions
     std::string encrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv);
     std::string decrypt(std::string &input, std::vector <uint8_t> key, std::vector <uint8_t> iv);
     void generate_key(size_t key_size);
