@@ -2,7 +2,7 @@
 
 //CURRENTLY: add final touches to project before final push to github
 
-//get .a files in a static lib files
+//get a few test case users and whatnot to each csv file
 
 int main()
 {
@@ -14,7 +14,6 @@ int main()
         std::cout << "Are you a student or a teacher, or press 'q' to exit(S/T/Q)?\n";
         std::cin >> input;
 
-        //clears input buffer, need to investigate to make sure that this is the best way to deal with it
         std::cin.sync();
 
         if(input == 'S' || input == 's')
