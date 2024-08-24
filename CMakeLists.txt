@@ -2,13 +2,17 @@
 
 cmake_minimum_required(VERSION 3.13.0)
 project(StudentManager)
-set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
-set(os_type 64)
 
 
-if(WIN32 AND MINGW)
-    set(CryptoLibDir "${CMAKE_SOURCE_DIR}/bin/staticlibs/Windows64/MINGW/")
+if(WIN32)
+    set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    if(CMAKE_COMPILER_IS_GNUCXX)
+        set(CryptoLibDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-mingw-static/lib")
+    elseif(MSVC)
+        set(CryptoLibDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-windows/lib")
+    endif()
 endif()
+
 #setting path to source files and headers
 set(SourceFileDir "${CMAKE_SOURCE_DIR}/Includes")
 
