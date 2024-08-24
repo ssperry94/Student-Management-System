@@ -1,7 +1,6 @@
 #include <handling.h>
 
 /*Main
-
 -where main input happends
 -user either selects teacher or student, then appropriate function that handles each user type's options is called
 */
