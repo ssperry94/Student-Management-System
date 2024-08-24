@@ -8,8 +8,10 @@ if(WIN32)
     set(CMAKE_TOOLCHAIN_FILE "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
     if(CMAKE_COMPILER_IS_GNUCXX)
         set(CryptoLibDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-mingw-static/lib")
+        set(CryptoSourceDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-mingw-static/include")
     elseif(MSVC)
         set(CryptoLibDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-windows/lib")
+        set(CryptoSourceDir "${CMAKE_SOURCE_DIR}/vcpkg/packages/cryptopp_x64-windows/include")
     endif()
 endif()
 
@@ -25,6 +27,7 @@ include_directories("${CryptoLibDir}")
 #include_directories("${CMAKE_SOURCE_DIR}")
 #include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/include/cryptopp")
 include_directories("${SourceFileDir}")
+include_directories("${CryptoSourceDir}")
 
 
 set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp ${SourceFileDir}/handling.cpp)

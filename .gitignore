@@ -15,3 +15,6 @@
 
 #ignore binary files
 *.a
+
+#ignore vcpkg .github
+vcpkg/.github
