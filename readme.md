@@ -12,3 +12,10 @@ Students:
         For Student2:
         -Username: janedoe
         -Password: janedoe123
+
+
+Build Rough (Windows) Draft:
+1) clone the repo with <command to clone>
+2) go to https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd to set up vcpgk package manager (if not already)
+
+3)
