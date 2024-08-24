@@ -33,7 +33,7 @@ void handle_teacher_options()
         else
         {
             std::cout << "Improper input detected, please enter either 'L', 'R', or 'Q'. It is not case-sensitive.\n";
-            std::cin.sync();
+            //std::cin.sync();
         }
 
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

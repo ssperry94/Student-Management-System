@@ -7,7 +7,7 @@
 
 int main()
 {
-    char input;
+    char input = '\0';
 
     std::cout << "Welcome to the Student Manager Program!\n";
     while(input != 'q')
@@ -15,7 +15,7 @@ int main()
         std::cout << "Are you a student or a teacher, or press 'q' to exit(S/T/Q)?\n";
         std::cin >> input;
 
-        std::cin.sync();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         if(input == 'S' || input == 's')
         {

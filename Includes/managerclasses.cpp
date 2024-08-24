@@ -27,7 +27,7 @@ std::string User::find_student()
     while(std::getline(student_file, student))
     {
         std::istringstream line(student);
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 4; i++)
         {
             std::string element;
             std::getline(line, element, ',');
