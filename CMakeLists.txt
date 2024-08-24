@@ -8,8 +8,9 @@ set(os_type 64)
 
 #setting path straight to cryptopp .lib file
 #set(CryptoLibDir "C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/lib")
-set(CryptoLibDir "${CMAKE_SOURCE_DIR}/bin/staticlibs")
-
+if(WIN32 AND MINGW)
+    set(CryptoLibDir "${CMAKE_SOURCE_DIR}/bin/staticlibs/Windows64/MINGW/")
+endif()
 #setting path to source files and headers
 set(SourceFileDir "${CMAKE_SOURCE_DIR}/Includes")
 
