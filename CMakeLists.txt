@@ -19,8 +19,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 link_directories(${CryptoLibDir})
 include_directories(${CSVFileDir})
 include_directories("${CryptoLibDir}")
-include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2")
-include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/include/cryptopp")
+#include_directories("${CMAKE_SOURCE_DIR}")
+#include_directories("C:/Users/ssper/OneDrive/Desktop/CPP/Projects/Student Managerv2/vcpkg/packages/cryptopp_x64-mingw-static/include/cryptopp")
 include_directories("${SourceFileDir}")
 
 
