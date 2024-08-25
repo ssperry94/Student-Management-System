@@ -15,7 +15,7 @@ void handle_teacher_options()
         if(user_verify_option == 'L' || user_verify_option == 'l')
         {
             handle_logging_in();
-            std::system("pause");
+            utils::pause();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break; //end loop
         }
@@ -110,7 +110,7 @@ void handle_teacher_options()
                         std::cout << "Last Name: " << info[2] << '\n';
                         std::cout << "Date of Birth: " << info[3] << "\n\n";
                     }
-                    std::system("pause");
+                    utils::pause();
                     break;
                 }
 
@@ -137,7 +137,7 @@ void handle_teacher_options()
                         }
                         std::cout << std::right << '\n'; //reseting back to normal
                     }
-                    std::system("pause");
+                    utils::pause();
                     break;
                 }
 
@@ -163,7 +163,7 @@ void handle_teacher_options()
                         }
                     } 
                     std::cout << std::right; //back to default
-                    std::system("pause");
+                    utils::pause();
                     break;         
                 }
 
@@ -220,7 +220,7 @@ void handle_student_options()
         {
             handle_logging_in(idnum);
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::system("pause");
+            utils::pause();
             break;
         }
         else if(user_verify_option == 'R' || user_verify_option == 'r')
@@ -264,7 +264,7 @@ void handle_student_options()
                     std::cout << "First Name: " << student_info[1] << '\n';
                     std::cout << "Last Name: " << student_info[2] << '\n';
                     std::cout << "Date of Birth: " << student_info[3] << "\n\n";
-                    std::system("pause");
+                    utils::pause();
                     break;
                 }
 
@@ -287,7 +287,7 @@ void handle_student_options()
                         }
                         std::cout << std::right << '\n'; //reseting back to normal
                     }
-                    std::system("pause");
+                    utils::pause();
                     break;
                 }
 
@@ -308,7 +308,7 @@ void handle_student_options()
                         }
                     } 
                     std::cout << std::right; //back to default
-                    std::system("pause");
+                    utils::pause();
                     break;
                 }
                 case 4:
