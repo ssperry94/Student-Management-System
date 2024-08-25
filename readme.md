@@ -19,3 +19,9 @@ Build Rough (Windows) Draft:
 2) go to https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd to set up vcpgk package manager (if not already)
 
 3)
+
+
+For Linux:
+1) Install cmake for linux
+2) Install cryptopp for linux with this command :sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
+3) 

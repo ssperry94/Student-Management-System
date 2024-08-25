@@ -27,8 +27,9 @@ link_directories(${CryptoLibDir})
 # include_directories(${CSVFileDir})
 #include_directories("${CryptoLibDir}")
 include_directories("${SourceFileDir}")
-include_directories("${CryptoSourceDir}")
-
+if(WIN32)
+    include_directories("${CryptoSourceDir}")
+endif()
 
 set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp ${SourceFileDir}/handling.cpp)
 
