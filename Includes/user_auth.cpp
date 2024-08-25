@@ -134,7 +134,7 @@ int smanEncrypt::UserRegistrator::add_account(std::vector <uint8_t> key)
     if(!is_teacher)
     {
         Teacher get_id_tech;
-        std::cin.sync();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         idnum = get_id_tech.find_student();
 
         if(idnum == "1")

@@ -20,6 +20,8 @@ set(SourceFileDir "${CMAKE_SOURCE_DIR}/Includes")
 
 #setting path to bin folder
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 
 link_directories(${CryptoLibDir})
 # include_directories(${CSVFileDir})

@@ -7,7 +7,7 @@
 
 int main()
 {
-    char input = '\0';
+    char input = NULL;
 
     std::cout << "Welcome to the Student Manager Program!\n";
     while(input != 'q')

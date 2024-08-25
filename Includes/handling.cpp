@@ -16,6 +16,7 @@ void handle_teacher_options()
         {
             handle_logging_in();
             std::system("pause");
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break; //end loop
         }
 
@@ -218,6 +219,7 @@ void handle_student_options()
         if(user_verify_option == 'L' || user_verify_option == 'l')
         {
             handle_logging_in(idnum);
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::system("pause");
             break;
         }
