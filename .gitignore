@@ -18,3 +18,6 @@
 
 #ignore vcpkg .github
 vcpkg/.github
+
+#ignore VS .pdb files
+*.pdb
