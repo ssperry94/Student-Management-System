@@ -473,3 +473,4 @@ void handle_registration(bool is_teacher)
         exit(1);
     }
 }
+

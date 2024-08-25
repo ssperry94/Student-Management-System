@@ -5,8 +5,14 @@
 -user either selects teacher or student, then appropriate function that handles each user type's options is called
 */
 
+void testPauseFunct() {
+    std::cout << "Did we pause?\n";
+    utils::pause();
+}
+
 int main()
 {
+    testPauseFunct();
     char input = NULL;
 
     std::cout << "Welcome to the Student Manager Program!\n";

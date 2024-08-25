@@ -4,6 +4,7 @@
 #include <managerclasses.h>
 #include <user_auth.h>
 #include <iomanip>
+#include "utils.h"
 
 //main functions for handling each options
 void handle_teacher_options();

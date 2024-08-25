@@ -31,7 +31,7 @@ if(WIN32)
     include_directories("${CryptoSourceDir}")
 endif()
 
-set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp ${SourceFileDir}/handling.cpp)
+set(SOURCES main.cpp ${SourceFileDir}/managerclasses.cpp ${SourceFileDir}/user_auth.cpp ${SourceFileDir}/handling.cpp ${SourceFileDir}/utils.cpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCES})
