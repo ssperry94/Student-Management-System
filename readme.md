@@ -32,4 +32,9 @@ for G++: vcpkg install cryptopp_x64-mingw-static
 For Linux:
 1) Install cmake for linux
 2) Install cryptopp for linux with this command: sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
-3) 
+3) If running from a bash terminal, use the following commands:
+    -mkdir build && cd build 
+    -cmake ..
+    -cmake --build .
+    -cd ../bin
+    -./StudentManager
