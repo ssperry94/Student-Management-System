@@ -1,6 +1,8 @@
 #ignore all csv, txt, and exe files (except CMAKE)
 *.txt 
 !CMakeLists.txt
+!cryptopp.txt
+!liscense.txt
 *.exe
 
 #ignores vscode files and directories
