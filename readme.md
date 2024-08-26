@@ -1,3 +1,16 @@
+StudentManager
+
+A cross-platform solution for students and teachers to manage their day-to-day activities.
+Description
+
+StudentManager is a user-friendly application designed to help teachers efficiently manage their students' information and provide students with easy access to their grades and schedules.
+
+Key Features:
+
+    For Students: Students can quickly view their personal information, grade averages, and class schedules, making it easier to stay on top of their academic performance.
+    For Teachers: Teachers can manage all student records, including adding new students, updating grades, and scheduling classes. This helps streamline administrative tasks and ensures accurate record-keeping.
+
+
 Login Information: 
 Teacher:
     -Username: teacher
