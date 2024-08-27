@@ -5,8 +5,6 @@
 ## Disclaimer
 **This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.**
 
-## Licensing 
-
 ## Licenses
 
 This project is licensed under the [MIT License](liscense.txt).
