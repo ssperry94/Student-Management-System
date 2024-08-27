@@ -1,62 +1,92 @@
 # StudentManager
 
-A cross-platform solution for students and teachers to manage their day-to-day activities.
-# Description
+**A cross-platform solution for students and teachers to manage their day-to-day activities.**
+
+## Description
 
 StudentManager is a user-friendly application designed to help teachers efficiently manage their students' information and provide students with easy access to their grades and schedules.
 
-Key Features:
+**Key Features:**
 
-    For Students: 
-        Students can quickly view their personal information, grade averages, and class schedules, making it easier to stay on top of their academic performance.
-    For Teachers: 
-        Teachers can manage all student records, including adding new students, updating grades, and scheduling classes. This helps streamline administrative tasks and ensures accurate record-keeping.
+- **For Students:**
+  - Quickly view personal information, grade averages, and class schedules, making it easier to stay on top of academic performance.
 
-# Build Information
+- **For Teachers:**
+  - Manage all student records, including adding new students, updating grades, and scheduling classes. This helps streamline administrative tasks and ensures accurate record-keeping.
+## Build Information
 
-## Dependancies
--For all platforms:
-    A C++ compiler
-        either g++ for windows or linux, or MSVC for windows
-    -CMake
-        download: https://cmake.org/download/
-        Crypto++ library for your OS
-For Windows only:
-    -vcpkg manager to get Crypto++
+### Dependencies
 
-## How To Build 
-For Windows:
-1) Clone this repository with: 
-    git clone https://github.com/ssperry94/Student-Management-System
+**For all platforms:**
+- **C++ Compiler**
+  - GCC (g++) for Linux
+  - MSVC or MinGW for Windows
+- **CMake**
+  - [Download CMake here](https://cmake.org/download/)
+- **Crypto++ Library**
+  - Platform-specific installation instructions provided below.
 
-2) Head to https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd and follow the first section to set up vcpkg in this project's directory.
+**For Windows only:**
+- **vcpkg Package Manager**
+  - [Installation Guide for vcpkg](https://github.com/microsoft/vcpkg#quick-start)
 
-3) cd into the new vcpkg directory and run one of the following commands:
-For MSVC Compilers:
-    install cryptopp:x64-windows-static-md
+### How To Build
 
-For G++ Compilers:
-    vcpkg install cryptopp_x64-mingw-static
+#### **Windows**
 
-4) If you're building from the command line, use the following set of commands:
-    mkdir build && cd build 
-    cmake .. 
-    cmake --build . 
-    cd ../bin 
+1. **Clone the Repository:**
+   ```bash
+        git clone https://github.com/ssperry94/Student-Management-System
+        cd Student-Management-System
+   ```
+2. **Install vcpkg on Windows**
+3. **Install Crypto++:**
+    - **For MSVC Compilers:**
+        ```bash
+        cd vcpkg
+        vcpkg install cryptopp:x64-windows-static-md
+        ```
+    - **For G++ Compilers:**
+        ```bash
+        cd vcpkg
+        vcpkg install cryptopp_x64-mingw-static
+        ```
+
+4. **Build the Project:**
+    ```bash
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+    cd ../bin
     StudentManager
+    ```
+*Alternatively, configure your code editor/IDE with CMake and build within the environment.*
 
-Otherwise just have your code editor/IDE configured with CMake and build.
+#### For Linux:
 
-For Linux:
-1) Clone this repository with git clone https://github.com/ssperry94/Student-Management-System
+1. **Clone the Repository:**
+    ```bash
+    git clone https://github.com/ssperry94/Student-Management-System
+    cd Student-Management-System
+    ```
 
-2) Install CMake for Linux
-3) Get the Crypto++ library with
+2. **Install CMake for Linux:**
+    ```bash
+    sudo apt-get install cmake
+    ```
+
+3. **Install Crypto++ Library:**
+    ```bash
     sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
+    ```
 
-4) If you're building from a bash terminal, use the following commands after cd into the projects main directory:
-    mkdir build && cd build 
-    cmake .. 
-    cmake --build . 
-    cd ../bin 
+4. **Build the Project:**
+    ```bash
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+    cd ../bin
     ./StudentManager
+    ```
