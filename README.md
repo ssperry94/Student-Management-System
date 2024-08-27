@@ -2,12 +2,18 @@
 
 **A cross-platform solution for students and teachers to manage their day-to-day activities.**
 
+##Disclaimer
+This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.
+
 ## Description
 
 StudentManager is a user-friendly application designed to help teachers efficiently manage their students' information and provide students with easy access to their grades and schedules.
 
+**bold text** Do not use this project to store any information on any real students or teachers, nor should you store any actual login information through this application.
+
 **Key Features:**
 
+- All user information is encrypted using Crypto++ to protect sensitive information.
 - **For Students:**
   - Quickly view personal information, grade averages, and class schedules, making it easier to stay on top of academic performance.
 
@@ -28,7 +34,7 @@ StudentManager is a user-friendly application designed to help teachers efficien
 
 **For Windows only:**
 - **vcpkg Package Manager**
-  - [Installation Guide for vcpkg](https://github.com/microsoft/vcpkg#quick-start)
+  - [Installation Guide for vcpkg](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd)
 
 ### How To Build
 
@@ -90,3 +96,10 @@ StudentManager is a user-friendly application designed to help teachers efficien
     cd ../bin
     ./StudentManager
     ```
+
+##Tutorial 
+
+##Known Issues:
+
+- When using MinGW on windows, when making it past the inital menu, the user has to hit enter twice
+
