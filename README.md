@@ -93,6 +93,19 @@ StudentManager is a user-friendly application designed to help teachers efficien
     cmake --build .
     ```
 
+## Limitations
+
+Before running StudentManager, please be aware that this is only for demonstration purposes only. Therefore, there are some limitations you should be aware of:
+
+1. **Duplication**: There is currently no system in place to check for duplicate information. This includes any data entered for students, teachers, usernames, and passwords. Adding duplicates of pre-existing information may lead to errors.
+
+2. **.key File**: The encryption key is stored in a `.key` file located under `bin/key`. Do not change or delete this file, as doing so will prevent you from accessing anything past the login screen.
+
+3. **No Editing Capability**: At this time, there is no way to edit information once it has been entered. This means that any data entered for students or teachers is permanent. The only way to correct it is by accessing the "Troubleshoot" option in the main menu and resetting the affected files. Be aware that resetting files containing pre-made students and teachers will delete them.
+
+4. **No GUI**: The program currently operates entirely through the terminal. While the program includes error handling for most invalid inputs, it may not catch all potential errors.
+
+
 ## Tutorial 
 To run the project, you can either run the code from your development enviornment of choice (assuming you've set up the dependancies), or run one of these commands:
 ### **Windows**
@@ -123,10 +136,10 @@ The program should then ask if you are a teacher or a student. By default there 
 Alternativly, if you wish to test the registration system, press 'R' and follow the prompts to register as a student or teacher. This will add login information to the respective login CSVs. 
 
 Assuming you've successfully logged on, you can now mess with the various options avalible. If the program asks for students firstname and lastname, and you're using the pre-made students, their first names are:
-    ```bash
-        John Smith
-        Jane Doe
-    ```
+    - John Smith
+    - Jane Doe
+
+From here, you can explore the program and follow the prompts. Keep in mind the limitations of the program since this is only for demostration purposes. 
 ## Known Issues:
 
 - When using MinGW on windows, when making it past the inital menu, the user has to hit enter twice
