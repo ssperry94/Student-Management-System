@@ -3,7 +3,7 @@
 **A cross-platform solution for students and teachers to manage their day-to-day activities.**
 
 ## Disclaimer
-==This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.==
+**This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.**
 
 ## Description
 
@@ -23,18 +23,16 @@ StudentManager is a user-friendly application designed to help teachers efficien
 
 ### Dependencies
 
-**For all platforms:**
-- **C++ Compiler**
-  - GCC (g++) for Linux
-  - MSVC or MinGW for Windows
-- **CMake**
-  - [Download CMake here](https://cmake.org/download/)
-- **Crypto++ Library**
-  - Platform-specific installation instructions provided below.
+**Linux**
+- **C++ Compiler**: GCC (g++) for Linux
+- **CMake**: [Download CMake here](https://cmake.org/download/)
+- **Crypto++ Library**: Platform-specific installation instructions provided below.
 
-**For Windows only:**
-- **vcpkg Package Manager**
-  - [Installation Guide for vcpkg](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd)
+**Windows**
+- **C++ Compiler**: MinGW or MSVC
+- **CMake**: [Download CMake here](https://cmake.org/download/)
+- **Crypto++ Library**: Platform-specific installation instructions provided below.
+- **vcpkg Package Manager**: [Installation Guide for vcpkg](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd)
 
 ### How To Build
 
@@ -101,13 +99,13 @@ Before running StudentManager, please be aware that this is only for demonstrati
 
 2. **.key File**: The encryption key is stored in a `.key` file located under `bin/key`. Do not change or delete this file, as doing so will prevent you from accessing anything past the login screen.
 
-3. **No Editing Capability**: At this time, there is no way to edit information once it has been entered. This means that any data entered for students or teachers is permanent. The only way to correct it is by accessing the "Troubleshoot" option in the main menu and resetting the affected files. Be aware that resetting files containing pre-made students and teachers will delete them.
+3. **No Editing Capability**: At this time, there is no way to edit information once it has been entered. This means that any data entered for students or teachers is permanent. The only way to correct it is by accessing the "Troubleshoot" option in the main menu and resetting the affected files. Be aware that resetting files containing pre-made students and teachers will delete them. This feature will be added at a later date.
 
 4. **No GUI**: The program currently operates entirely through the terminal. While the program includes error handling for most invalid inputs, it may not catch all potential errors.
 
 
 ## Tutorial 
-To run the project, you can either run the code from your development enviornment of choice (assuming you've set up the dependancies), or run one of these commands:
+To run the project, you can either run the code from your development enviornment of choice (assuming you've set up the dependancies), or run one of these commands from the project directory:
 ### **Windows**
     ```bash
         cd ../bin
@@ -121,22 +119,21 @@ To run the project, you can either run the code from your development enviornmen
 
 The program should then ask if you are a teacher or a student. By default there is one teacher and two students. You can log in as either, below is the login information
 
-**Teacher**
-- Username: teacher
-- Password: teacher123
+**Teacher Login:**
+- **Username:** teacher
+- **Password:** teacher123
 
-**Student**
-- Username: johnsmith
-- Password: johnsmith123
+**Student Logins:**
+- **Username:** johnsmith
+- **Password:** johnsmith123
 
-*OR*
+- **Username:** janedoe
+- **Password:** janedoe123
 
-- Username: janedoe
-- Password: janedoe123
 
 Alternativly, if you wish to test the registration system, press 'R' and follow the prompts to register as a student or teacher. This will add login information to the respective login CSVs. 
 
-Assuming you've successfully logged on, you can now mess with the various options avalible. If the program asks for students firstname and lastname, and you're using the pre-made students, their first names are:
+Assuming you've successfully logged on, you can now mess with the various options avalible. If the program asks for students firstname and lastname, and you're using the pre-made students, their first and last names are:
 
     - John Smith
     - Jane Doe
@@ -144,5 +141,5 @@ Assuming you've successfully logged on, you can now mess with the various option
 From here, you can explore the program and follow the prompts. Keep in mind the limitations of the program since this is only for demostration purposes. 
 ## Known Issues:
 
-- When using MinGW on windows, when making it past the inital menu, the user has to hit enter twice
+- When using MinGW on windows, when making it past the inital menu, the user has to hit enter twice.
 
