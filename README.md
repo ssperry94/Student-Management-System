@@ -3,7 +3,7 @@
 **A cross-platform solution for students and teachers to manage their day-to-day activities.**
 
 ## Disclaimer
-This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.
+==This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.==
 
 ## Description
 
@@ -120,6 +120,7 @@ To run the project, you can either run the code from your development enviornmen
     ```
 
 The program should then ask if you are a teacher or a student. By default there is one teacher and two students. You can log in as either, below is the login information
+
 **Teacher**
 - Username: teacher
 - Password: teacher123
@@ -136,6 +137,7 @@ The program should then ask if you are a teacher or a student. By default there 
 Alternativly, if you wish to test the registration system, press 'R' and follow the prompts to register as a student or teacher. This will add login information to the respective login CSVs. 
 
 Assuming you've successfully logged on, you can now mess with the various options avalible. If the program asks for students firstname and lastname, and you're using the pre-made students, their first names are:
+
     - John Smith
     - Jane Doe
 
