@@ -149,7 +149,7 @@ Here's a small summary of each source file:
 - **handling.cpp:** These contain functions that display the menu and instantiante instances of student and teacher classes, as well as functions that display the login menu and call the various user authenication classes and functions. 
 - **user_auth:** This source file contains all the classes and functions that handle user authentication. The encryption library is Crypto++. It uses the AES to encrypt the data and CBC to ensure there are no repeating characters. Each Initalization Vector is stored alongside its respective login information for demonstration purposes. 
 - **managerclasses.cpp:** This contains the classes for teachers and students, as well as the user class they both inherit from. These classes handle all options related to teachers and students.
--**utils.cpp:** Contains any utility type functions- as of now there is only the pause() function, which is a function that can pause the terminal on both Windows and Linux. As more features are added, this source file will grow as needed. 
+- **utils.cpp:** Contains any utility type functions- as of now there is only the pause() function, which is a function that can pause the terminal on both Windows and Linux. As more features are added, this source file will grow as needed. 
 
 ### What I Learned
 
