@@ -5,6 +5,16 @@
 ## Disclaimer
 **This project is only intended for demonstrational purposes, and should NEVER be used to manage actual students or store sensitive information.**
 
+## Licensing 
+
+## Licenses
+
+This project is licensed under the [MIT License](liscense.txt).
+
+This project uses the Crypto++ library, which is licensed under the Boost Software License 1.0 and includes components licensed under the CRYPTOGAMS license. 
+
+You can find the full text of the Crypto++ license in the `ThridPartyLicenses` directory of this repository.
+
 ## Description
 
 StudentManager is a user-friendly application designed to help teachers efficiently manage their students' information and provide students with easy access to their grades and schedules.
