@@ -61,7 +61,7 @@ StudentManager is a user-friendly application designed to help teachers efficien
     - **For G++ Compilers:**
         ```bash
         cd vcpkg
-        vcpkg install cryptopp_x64-mingw-static
+        vcpkg install cryptopp:x64-mingw-static
         ```
 
 4. **Build the Project:**
